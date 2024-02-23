@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api.oems", "api.oems\api.oems.csproj", "{8BC3F678-6036-4C47-98E1-BF78A5586289}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "common", "common\common.csproj", "{EEB79CA3-70A1-4971-9413-4ACE055B9057}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8BC3F678-6036-4C47-98E1-BF78A5586289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BC3F678-6036-4C47-98E1-BF78A5586289}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BC3F678-6036-4C47-98E1-BF78A5586289}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BC3F678-6036-4C47-98E1-BF78A5586289}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEB79CA3-70A1-4971-9413-4ACE055B9057}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEB79CA3-70A1-4971-9413-4ACE055B9057}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEB79CA3-70A1-4971-9413-4ACE055B9057}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEB79CA3-70A1-4971-9413-4ACE055B9057}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A0D31435-6B1E-40AB-A686-125EF524B5B7}
+	EndGlobalSection
+EndGlobal
