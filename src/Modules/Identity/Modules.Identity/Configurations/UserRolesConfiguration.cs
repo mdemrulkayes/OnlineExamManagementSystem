@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using Modules.Identity.Constants;
 
 namespace Modules.Identity.Configurations;
 internal sealed class UserRolesConfiguration : IEntityTypeConfiguration<IdentityUserRole<Guid>>
@@ -19,25 +20,25 @@ internal sealed class UserRolesConfiguration : IEntityTypeConfiguration<Identity
             new()
             {
                 Id = Guid.NewGuid(),
-                Name = "SuperAdmin",
+                Name = RoleConstants.SuperAdmin,
                 NormalizedName = "Super Admin"
             },
             new()
             {
                 Id = Guid.NewGuid(),
-                Name = "SupportAdmin",
+                Name = RoleConstants.SupportAdmin,
                 NormalizedName = "Support Admin"
             },
             new()
             {
                 Id = Guid.NewGuid(),
-                Name = "QuizAuthor",
+                Name = RoleConstants.QuizAuthor,
                 NormalizedName = "Author"
             },
             new()
             {
                 Id = Guid.NewGuid(),
-                Name = "Examine",
+                Name = RoleConstants.Examine,
                 NormalizedName = "Examine"
             }
         });
