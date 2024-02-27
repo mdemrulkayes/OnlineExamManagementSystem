@@ -1,6 +1,7 @@
 ﻿namespace Modules.Identity.Constants;
-internal class IdentityRouteConstants
+internal struct IdentityRouteConstants
 {
     internal const string Register = "/api/identity/register";
     internal const string Login = "/api/identity/login";
+    internal const string IdentityTagName = "Identity";
 }

@@ -1,44 +1,65 @@
-var builder = WebApplication.CreateBuilder(args);
+using Modules.Identity;
+using Serilog;
+using Serilog.Events;
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var config = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json", optional: false)
+    .Build();
 
-var app = builder.Build();
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(config.GetSection("Serilog"))
+    .CreateLogger();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+try
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var builder = WebApplication.CreateBuilder(args);
+
+    builder.Host.UseSerilog();
+
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+    builder.Services.RegisterIdentityModule(builder.Configuration);
+
+    var app = builder.Build();
+
+    app.UseSerilogRequestLogging(options =>
+    {
+        // Customize the message template
+        options.MessageTemplate = "Handled {RequestPath}";
+
+        // Emit debug-level events instead of the defaults
+        options.GetLevel = (httpContext, elapsed, ex) => LogEventLevel.Debug;
+
+        // Attach additional properties to the request completion event
+        options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
+        {
+            diagnosticContext.Set("RequestHost", httpContext.Request.Host.Value);
+            diagnosticContext.Set("RequestScheme", httpContext.Request.Scheme);
+        };
+    });
+
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    app.UseAuthentication();
+    app.UseAuthorization();
+
+    app.UseHttpsRedirection();
+
+    app.MapIdentityRoutes();
+
+    app.Run();
 }
-
-app.UseHttpsRedirection();
-
-var summaries = new[]
+catch (Exception ex)
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
+    Log.Fatal(ex, "Error occurred in the application startup. Message: {@Message}", ex.Message);
+    throw new ApplicationException("An application exception occurred at the time of start up");
+}
+finally
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
-
-app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    Log.CloseAndFlush();
 }

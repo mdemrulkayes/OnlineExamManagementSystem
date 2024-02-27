@@ -5,6 +5,6 @@ using SharedKernel.Core;
 namespace Modules.Identity.Features.Registration.Services;
 internal interface IUserRegistrationService
 {
-    Task<Result<IdentityResult>> RegisterUser(UserRegistrationCommand command);
+    Task<IdentityResult> RegisterUser(UserRegistrationCommand command);
     Task<ApplicationUser?> GetUserDetailsByEmail(string email);
 }

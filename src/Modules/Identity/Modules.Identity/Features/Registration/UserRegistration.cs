@@ -1,3 +1,13 @@
-﻿namespace Modules.Identity.Features.Registration;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Modules.Identity.Features.Registration.Services;
 
-internal sealed class UserRegistration;
+namespace Modules.Identity.Features.Registration;
+
+internal static class UserRegistration
+{
+    internal static IServiceCollection RegisterUserRegistrationServices(this IServiceCollection services)
+    {
+        services.AddScoped<IUserRegistrationService, UserRegistrationService>();
+        return services;
+    }
+}

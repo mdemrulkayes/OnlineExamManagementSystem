@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Modules.Identity.Persistence;
 using System.Reflection;
 using Modules.Identity.Entities;
+using Modules.Identity.Features.Registration;
 
 namespace Modules.Identity;
 public static class ServiceCollectionExtensions
@@ -14,9 +15,11 @@ public static class ServiceCollectionExtensions
     {
         services
             .RegisterFluentValidation()
-            .RegisterIdentityDatabase(configuration);
+            .RegisterIdentityDatabase(configuration)
+            .RegisterUserRegistrationServices();
         return services;
     }
+
     private static IServiceCollection RegisterFluentValidation(this IServiceCollection services)
     {
         ValidatorOptions.Global.DefaultClassLevelCascadeMode = CascadeMode.Continue;
@@ -54,6 +57,11 @@ public static class ServiceCollectionExtensions
             options.SignIn.RequireConfirmedAccount = false;
             options.SignIn.RequireConfirmedPhoneNumber = false;
         });
+
+        services.AddAuthentication()
+            .AddBearerToken(IdentityConstants.BearerScheme);
+
+        services.AddAuthorizationBuilder();
 
         services.AddIdentityCore<ApplicationUser>()
             .AddEntityFrameworkStores<IdentityModuleDbContext>()

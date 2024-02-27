@@ -15,32 +15,5 @@ internal sealed class UserRolesConfiguration : IEntityTypeConfiguration<Identity
                 x.RoleId,
                 x.UserId
             });
-
-        builder.HasData(new List<IdentityRole<Guid>> {
-            new()
-            {
-                Id = Guid.NewGuid(),
-                Name = RoleConstants.SuperAdmin,
-                NormalizedName = "Super Admin"
-            },
-            new()
-            {
-                Id = Guid.NewGuid(),
-                Name = RoleConstants.SupportAdmin,
-                NormalizedName = "Support Admin"
-            },
-            new()
-            {
-                Id = Guid.NewGuid(),
-                Name = RoleConstants.QuizAuthor,
-                NormalizedName = "Author"
-            },
-            new()
-            {
-                Id = Guid.NewGuid(),
-                Name = RoleConstants.Examine,
-                NormalizedName = "Examine"
-            }
-        });
     }
 }
