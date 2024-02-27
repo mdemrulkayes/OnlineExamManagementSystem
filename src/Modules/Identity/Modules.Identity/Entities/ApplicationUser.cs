@@ -21,8 +21,8 @@ public sealed class ApplicationUser : IdentityUser<Guid>, IBaseAuditableEntity
         LastName = lastName;
         Email = UserName = NormalizedEmail = NormalizedUserName = email;
         PhoneNumber = phoneNumber;
-        EmailConfirmed = false;
-        PhoneNumberConfirmed = false;
+        EmailConfirmed = true;
+        PhoneNumberConfirmed = true;
     }
 
     public static ApplicationUser RegisterUser(string firstName, string lastName, string email, string phoneNumber)
