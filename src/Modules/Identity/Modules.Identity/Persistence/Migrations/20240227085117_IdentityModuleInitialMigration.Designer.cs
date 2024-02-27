@@ -12,7 +12,7 @@ using Modules.Identity.Persistence;
 namespace Modules.Identity.Persistence.Migrations
 {
     [DbContext(typeof(IdentityModuleDbContext))]
-    [Migration("20240227083546_IdentityModuleInitialMigration")]
+    [Migration("20240227085117_IdentityModuleInitialMigration")]
     partial class IdentityModuleInitialMigration
     {
         /// <inheritdoc />
@@ -48,25 +48,25 @@ namespace Modules.Identity.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e401bfba-0ab8-4302-9dc0-db194bcf69f0"),
+                            Id = new Guid("a2c62b7a-98da-44ac-aa62-e595347ba5be"),
                             Name = "SuperAdmin",
                             NormalizedName = "Super Admin"
                         },
                         new
                         {
-                            Id = new Guid("ee06f5d4-e7f7-4c34-adca-9311507ce47a"),
+                            Id = new Guid("4a639e19-b72f-42e4-bf85-00a45e0424af"),
                             Name = "SupportAdmin",
                             NormalizedName = "Support Admin"
                         },
                         new
                         {
-                            Id = new Guid("46398f63-e847-4de6-aa36-bc0bcc2538ca"),
+                            Id = new Guid("8f4b288b-9c4d-47e5-8a56-b552ab503b6f"),
                             Name = "QuizAuthor",
                             NormalizedName = "Author"
                         },
                         new
                         {
-                            Id = new Guid("ed628fa0-37e2-45e6-8431-9e0934f478d5"),
+                            Id = new Guid("90ff7739-edb3-4650-8640-bc537f0ae02c"),
                             Name = "Examine",
                             NormalizedName = "Examine"
                         });

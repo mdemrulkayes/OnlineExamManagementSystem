@@ -175,10 +175,10 @@ namespace Modules.Identity.Persistence.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("46398f63-e847-4de6-aa36-bc0bcc2538ca"), null, "QuizAuthor", "Author" },
-                    { new Guid("e401bfba-0ab8-4302-9dc0-db194bcf69f0"), null, "SuperAdmin", "Super Admin" },
-                    { new Guid("ed628fa0-37e2-45e6-8431-9e0934f478d5"), null, "Examine", "Examine" },
-                    { new Guid("ee06f5d4-e7f7-4c34-adca-9311507ce47a"), null, "SupportAdmin", "Support Admin" }
+                    { new Guid("4a639e19-b72f-42e4-bf85-00a45e0424af"), null, "SupportAdmin", "Support Admin" },
+                    { new Guid("8f4b288b-9c4d-47e5-8a56-b552ab503b6f"), null, "QuizAuthor", "Author" },
+                    { new Guid("90ff7739-edb3-4650-8640-bc537f0ae02c"), null, "Examine", "Examine" },
+                    { new Guid("a2c62b7a-98da-44ac-aa62-e595347ba5be"), null, "SuperAdmin", "Super Admin" }
                 });
 
             migrationBuilder.CreateIndex(

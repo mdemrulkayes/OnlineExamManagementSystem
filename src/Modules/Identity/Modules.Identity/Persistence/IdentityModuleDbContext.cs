@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Modules.Identity.Constants;
 using Modules.Identity.Entities;
 
 namespace Modules.Identity.Persistence;
@@ -14,7 +15,7 @@ public class IdentityModuleDbContext(DbContextOptions<IdentityModuleDbContext> o
     /// </param>
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.HasDefaultSchema("Identity");
+        builder.HasDefaultSchema(IdentityModuleConstants.SchemaName);
         builder.ApplyConfigurationsFromAssembly(typeof(IdentityModuleDbContext).Assembly);
     }
 }

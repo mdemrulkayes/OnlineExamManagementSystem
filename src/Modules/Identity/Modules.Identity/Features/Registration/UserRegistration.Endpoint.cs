@@ -10,11 +10,11 @@ internal static class UserRegistrationEndpoint
 {
     internal static IEndpointRouteBuilder AddUserRegistrationEndpoint(this IEndpointRouteBuilder builder)
     {
-        builder.MapPost(IdentityRouteConstants.Register, RegisterUser)
+        builder.MapPost(IdentityModuleConstants.Route.Register, RegisterUser)
         .Produces<Ok>()
         .Produces<BadRequest>()
-        .WithName("Register")
-        .WithTags(IdentityRouteConstants.IdentityTagName)
+        .WithName(nameof(IdentityModuleConstants.Route.Register))
+        .WithTags(IdentityModuleConstants.RouteTag.IdentityTagName)
         .WithOpenApi();
 
         return builder;

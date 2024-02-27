@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Modules.Identity.Persistence;
 using System.Reflection;
+using Modules.Identity.Constants;
 using Modules.Identity.Entities;
 using Modules.Identity.Features.Registration;
 
@@ -32,7 +33,12 @@ public static class ServiceCollectionExtensions
     {
         services.AddDbContext<IdentityModuleDbContext>(opt =>
         {
-            opt.UseSqlServer(configuration.GetConnectionString("IdentityModuleDbContext"));
+            opt.UseSqlServer(configuration.GetConnectionString("IdentityModuleDbContext"), optBuilder =>
+            {
+                optBuilder.EnableRetryOnFailure(10);
+                optBuilder.MigrationsHistoryTable(IdentityModuleConstants.MigrationHistoryTableName, IdentityModuleConstants.SchemaName);
+                optBuilder.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
+            });
         });
 
         RegisterIdentity(services);
