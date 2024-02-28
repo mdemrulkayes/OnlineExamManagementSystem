@@ -12,7 +12,6 @@ internal static class UserRegistrationEndpoint
     {
         builder.MapPost(IdentityModuleConstants.Route.Register, RegisterUser)
         .Produces<Ok>()
-        .Produces<BadRequest>()
         .WithName(nameof(IdentityModuleConstants.Route.Register))
         .WithTags(IdentityModuleConstants.RouteTag.IdentityTagName)
         .WithOpenApi();

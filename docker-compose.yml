@@ -1,0 +1,34 @@
+version: '3.4'
+name: quizzer
+services:
+  quizzer.api:
+    container_name: quizzer-api
+    image: quizzer-api
+    build:
+      context: .
+      dockerfile: src/API/Quizzer.Api/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__IdentityModuleDbContext: "Server=quizzer-db;database=Quizzer;User Id=sa;Password=Pass@word;Encrypt=false"
+    ports:
+       - "50000:50000"
+       - "50001:50001"
+    depends_on:
+       - quizzer.db
+
+  quizzer.db:
+    container_name: quizzer-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Pass@word
+    volumes:
+      - sqlvolume:/var/opt/mssql
+    ports:
+    - 1435:1433
+
+volumes:
+   sqlvolume:
+
+
+

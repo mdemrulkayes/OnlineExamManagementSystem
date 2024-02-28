@@ -21,11 +21,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{5B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Identity", "src\Modules\Identity\Modules.Identity\Modules.Identity.csproj", "{73751777-2924-4BDE-B483-4FB99B036EB5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quizzer.Api", "src\API\Oems.Api\Quizzer.Api.csproj", "{939C4D77-5E39-440C-AD35-BE36F6CD8E23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quizzer.Api", "src\API\Quizzer.Api\Quizzer.Api.csproj", "{939C4D77-5E39-440C-AD35-BE36F6CD8E23}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1FE9C623-F835-41E6-827F-5A1503851C25}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quizzer.Api.FunctionalTest", "tests\Oems.Api.FunctionalTest\Quizzer.Api.FunctionalTest.csproj", "{623145D4-41DF-4774-AB56-36BB39AD0CF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quizzer.Api.FunctionalTest", "tests\Quizzer.Api.FunctionalTest\Quizzer.Api.FunctionalTest.csproj", "{623145D4-41DF-4774-AB56-36BB39AD0CF8}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{48121298-B866-4920-8FEC-29BA44617D03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,6 +111,18 @@ Global
 		{623145D4-41DF-4774-AB56-36BB39AD0CF8}.Release|x64.Build.0 = Release|Any CPU
 		{623145D4-41DF-4774-AB56-36BB39AD0CF8}.Release|x86.ActiveCfg = Release|Any CPU
 		{623145D4-41DF-4774-AB56-36BB39AD0CF8}.Release|x86.Build.0 = Release|Any CPU
+		{48121298-B866-4920-8FEC-29BA44617D03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48121298-B866-4920-8FEC-29BA44617D03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48121298-B866-4920-8FEC-29BA44617D03}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{48121298-B866-4920-8FEC-29BA44617D03}.Debug|x64.Build.0 = Debug|Any CPU
+		{48121298-B866-4920-8FEC-29BA44617D03}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{48121298-B866-4920-8FEC-29BA44617D03}.Debug|x86.Build.0 = Debug|Any CPU
+		{48121298-B866-4920-8FEC-29BA44617D03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48121298-B866-4920-8FEC-29BA44617D03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48121298-B866-4920-8FEC-29BA44617D03}.Release|x64.ActiveCfg = Release|Any CPU
+		{48121298-B866-4920-8FEC-29BA44617D03}.Release|x64.Build.0 = Release|Any CPU
+		{48121298-B866-4920-8FEC-29BA44617D03}.Release|x86.ActiveCfg = Release|Any CPU
+		{48121298-B866-4920-8FEC-29BA44617D03}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
