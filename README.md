@@ -1,4 +1,4 @@
-## Online Exam Management system with ASP.NET Core and Angular
+## Quizzer is a Quiz Management system with ASP.NET Core and Angular
 🎉An older project initially moved from Bitbucket to Git. This project was built to manage online exams through an interactive portal.
 
 ## Below are steps to improve the project
