@@ -16,20 +16,11 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection RegisterIdentityModule(this IServiceCollection services, IConfiguration configuration)
     {
         services
-            .RegisterFluentValidation()
             .RegisterIdentityDatabase(configuration)
             .RegisterUserRegistrationServices();
         return services;
     }
 
-    private static IServiceCollection RegisterFluentValidation(this IServiceCollection services)
-    {
-        ValidatorOptions.Global.DefaultClassLevelCascadeMode = CascadeMode.Continue;
-        ValidatorOptions.Global.DefaultRuleLevelCascadeMode = CascadeMode.Stop;
-        services.AddValidatorsFromAssembly(typeof(ServiceCollectionExtensions).Assembly, includeInternalTypes: true);
-
-        return services;
-    }
     private static IServiceCollection RegisterIdentityDatabase(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<IdentityModuleDbContext>(opt =>

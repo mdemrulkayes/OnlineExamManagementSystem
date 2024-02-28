@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Modules.Identity.Entities;
+﻿using Modules.Identity.Entities;
 using SharedKernel.Core;
 
 namespace Modules.Identity.Features.Registration.Services;

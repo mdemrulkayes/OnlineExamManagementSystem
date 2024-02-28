@@ -3,6 +3,11 @@ using Quizzer.Api.Exceptions;
 using Serilog;
 using Serilog.Events;
 using SharedKernel.Infrastructure;
+using System.Reflection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Mvc;
+using Modules.Identity.Features.Registration;
 
 var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: false)
@@ -18,8 +23,16 @@ try
 
     builder.Host.UseSerilog();
 
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    builder.Services.AddFluentValidationAutoValidation(opt =>
+    {
+        opt.DisableDataAnnotationsValidation = true;
+    });
+    ValidatorOptions.Global.DefaultClassLevelCascadeMode = CascadeMode.Continue;
+    ValidatorOptions.Global.DefaultRuleLevelCascadeMode = CascadeMode.Stop;
+    builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+
+    builder.Services.Configure<ApiBehaviorOptions>(options =>
+        options.SuppressModelStateInvalidFilter = true);
 
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
     builder.Services.AddProblemDetails();
@@ -27,6 +40,8 @@ try
     builder.Services.RegisterSharedInfrastructure();
 
     builder.Services.RegisterIdentityModule(builder.Configuration);
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
 
     var app = builder.Build();
 
