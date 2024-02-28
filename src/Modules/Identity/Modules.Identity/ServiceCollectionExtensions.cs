@@ -8,6 +8,7 @@ using System.Reflection;
 using Modules.Identity.Constants;
 using Modules.Identity.Entities;
 using Modules.Identity.Features.Registration;
+using Microsoft.AspNetCore.Builder;
 
 namespace Modules.Identity;
 public static class ServiceCollectionExtensions
@@ -25,7 +26,7 @@ public static class ServiceCollectionExtensions
     {
         ValidatorOptions.Global.DefaultClassLevelCascadeMode = CascadeMode.Continue;
         ValidatorOptions.Global.DefaultRuleLevelCascadeMode = CascadeMode.Stop;
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(), includeInternalTypes: true);
+        services.AddValidatorsFromAssembly(typeof(ServiceCollectionExtensions).Assembly, includeInternalTypes: true);
 
         return services;
     }
@@ -42,9 +43,6 @@ public static class ServiceCollectionExtensions
         });
 
         RegisterIdentity(services);
-
-        MigrateDatabase(services);
-
         return services;
     }
 
@@ -74,13 +72,16 @@ public static class ServiceCollectionExtensions
             .AddDefaultTokenProviders();
     }
 
-    private static void MigrateDatabase(IServiceCollection services)
+    public static IApplicationBuilder MigrateIdentityModuleDatabase(this IApplicationBuilder app)
     {
-        using var scope = services.BuildServiceProvider().CreateScope();
-        var dbContext = scope.ServiceProvider.GetRequiredService<IdentityModuleDbContext>();
-        if (dbContext.Database.IsRelational())
+        var scopedService = app.ApplicationServices.CreateScope();
+        var dbContext = scopedService.ServiceProvider.GetRequiredService<IdentityModuleDbContext>();
+
+        if (dbContext.Database.IsSqlServer())
         {
             dbContext.Database.Migrate();
         }
+
+        return app;
     }
 }

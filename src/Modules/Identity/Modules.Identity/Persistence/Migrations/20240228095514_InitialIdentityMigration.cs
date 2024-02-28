@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Modules.Identity.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class IdentityModuleInitialMigration : Migration
+    public partial class InitialIdentityMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -52,7 +52,7 @@ namespace Modules.Identity.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserType = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
@@ -175,10 +175,10 @@ namespace Modules.Identity.Persistence.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("4a639e19-b72f-42e4-bf85-00a45e0424af"), null, "SupportAdmin", "Support Admin" },
-                    { new Guid("8f4b288b-9c4d-47e5-8a56-b552ab503b6f"), null, "QuizAuthor", "Author" },
-                    { new Guid("90ff7739-edb3-4650-8640-bc537f0ae02c"), null, "Examine", "Examine" },
-                    { new Guid("a2c62b7a-98da-44ac-aa62-e595347ba5be"), null, "SuperAdmin", "Super Admin" }
+                    { new Guid("3123befc-4fd0-4493-b28e-46c1ed881ca4"), null, "SupportAdmin", "Support Admin" },
+                    { new Guid("9d476df0-1663-43af-b06b-af945b07db45"), null, "Examine", "Examine" },
+                    { new Guid("ac3c30c4-fcbd-4e5a-ab8b-8f6179a65120"), null, "SuperAdmin", "Super Admin" },
+                    { new Guid("f0cc1d90-471c-4563-b20a-12acdb47735b"), null, "QuizAuthor", "Author" }
                 });
 
             migrationBuilder.CreateIndex(

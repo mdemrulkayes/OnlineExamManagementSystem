@@ -1,6 +1,7 @@
 using Modules.Identity;
 using Serilog;
 using Serilog.Events;
+using SharedKernel.Infrastructure;
 
 var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: false)
@@ -18,6 +19,9 @@ try
 
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+
+    builder.Services.RegisterSharedInfrastructure();
+
     builder.Services.RegisterIdentityModule(builder.Configuration);
 
     var app = builder.Build();
@@ -28,7 +32,7 @@ try
         options.MessageTemplate = "Handled {RequestPath}";
 
         // Emit debug-level events instead of the defaults
-        options.GetLevel = (httpContext, elapsed, ex) => LogEventLevel.Debug;
+        options.GetLevel = (_, _, _) => LogEventLevel.Debug;
 
         // Attach additional properties to the request completion event
         options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
@@ -44,6 +48,8 @@ try
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+
+    app.MigrateIdentityModuleDatabase();
 
     app.UseAuthentication();
     app.UseAuthorization();
@@ -63,3 +69,5 @@ finally
 {
     Log.CloseAndFlush();
 }
+
+public partial class Program;

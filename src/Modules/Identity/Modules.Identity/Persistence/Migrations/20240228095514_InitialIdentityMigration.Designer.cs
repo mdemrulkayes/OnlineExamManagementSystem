@@ -12,8 +12,8 @@ using Modules.Identity.Persistence;
 namespace Modules.Identity.Persistence.Migrations
 {
     [DbContext(typeof(IdentityModuleDbContext))]
-    [Migration("20240227085117_IdentityModuleInitialMigration")]
-    partial class IdentityModuleInitialMigration
+    [Migration("20240228095514_InitialIdentityMigration")]
+    partial class InitialIdentityMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,25 +48,25 @@ namespace Modules.Identity.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a2c62b7a-98da-44ac-aa62-e595347ba5be"),
+                            Id = new Guid("ac3c30c4-fcbd-4e5a-ab8b-8f6179a65120"),
                             Name = "SuperAdmin",
                             NormalizedName = "Super Admin"
                         },
                         new
                         {
-                            Id = new Guid("4a639e19-b72f-42e4-bf85-00a45e0424af"),
+                            Id = new Guid("3123befc-4fd0-4493-b28e-46c1ed881ca4"),
                             Name = "SupportAdmin",
                             NormalizedName = "Support Admin"
                         },
                         new
                         {
-                            Id = new Guid("8f4b288b-9c4d-47e5-8a56-b552ab503b6f"),
+                            Id = new Guid("f0cc1d90-471c-4563-b20a-12acdb47735b"),
                             Name = "QuizAuthor",
                             NormalizedName = "Author"
                         },
                         new
                         {
-                            Id = new Guid("90ff7739-edb3-4650-8640-bc537f0ae02c"),
+                            Id = new Guid("9d476df0-1663-43af-b06b-af945b07db45"),
                             Name = "Examine",
                             NormalizedName = "Examine"
                         });
@@ -187,9 +187,6 @@ namespace Modules.Identity.Persistence.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTimeOffset>("CreatedDate")
                         .HasColumnType("datetimeoffset");
 
@@ -251,6 +248,9 @@ namespace Modules.Identity.Persistence.Migrations
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserType")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

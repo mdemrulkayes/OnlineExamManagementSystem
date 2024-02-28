@@ -36,6 +36,9 @@ internal sealed class UserRegistrationCommandValidator : AbstractValidator<UserR
             .WithMessage("Confirm password can not be empty")
             .Matches(x => x.Password)
             .WithMessage("Password and Confirm password does not match");
+
+        RuleFor(x => x.UserType)
+            .IsInEnum();
     }
 
     private async Task<bool> IsUserAlreadyExistsWithTheSameEmail(string email)

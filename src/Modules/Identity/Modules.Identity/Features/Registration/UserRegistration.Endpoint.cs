@@ -22,8 +22,8 @@ internal static class UserRegistrationEndpoint
     private static async Task<IResult> RegisterUser(UserRegistrationCommand command, IUserRegistrationService userRegistrationService)
     {
         var userRegistrationResult = await userRegistrationService.RegisterUser(command);
-        return userRegistrationResult.Succeeded
+        return userRegistrationResult.IsSuccess
             ? TypedResults.Ok()
-            : TypedResults.BadRequest(userRegistrationResult.Errors.ToList());
+            : TypedResults.BadRequest(userRegistrationResult.Error); //TODO: Need to convert this to problem details
     }
 }

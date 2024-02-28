@@ -15,25 +15,25 @@ internal sealed class RoleConfiguration : IEntityTypeConfiguration<IdentityRole<
         builder.HasData(new List<IdentityRole<Guid>> {
             new()
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse(IdentityModuleConstants.Role.SuperAdminRoleGuid),
                 Name = RoleConstants.SuperAdmin,
                 NormalizedName = "Super Admin"
             },
             new()
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse(IdentityModuleConstants.Role.SupportAdminRoleGuid),
                 Name = RoleConstants.SupportAdmin,
                 NormalizedName = "Support Admin"
             },
             new()
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse(IdentityModuleConstants.Role.QuizAuthorRoleGuid),
                 Name = RoleConstants.QuizAuthor,
                 NormalizedName = "Author"
             },
             new()
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse(IdentityModuleConstants.Role.ExamineRoleGuid),
                 Name = RoleConstants.Examine,
                 NormalizedName = "Examine"
             }
