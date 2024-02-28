@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
 using Modules.Identity.Constants;
 using Modules.Identity.Features.Registration.Services;
+using SharedKernel.Core;
 
 namespace Modules.Identity.Features.Registration;
 internal static class UserRegistrationEndpoint
@@ -24,6 +25,6 @@ internal static class UserRegistrationEndpoint
         var userRegistrationResult = await userRegistrationService.RegisterUser(command);
         return userRegistrationResult.IsSuccess
             ? TypedResults.Ok()
-            : TypedResults.BadRequest(userRegistrationResult.Error); //TODO: Need to convert this to problem details
+            : userRegistrationResult.ConvertToProblemDetails();
     }
 }

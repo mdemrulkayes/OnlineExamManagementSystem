@@ -1,4 +1,5 @@
 using Modules.Identity;
+using Quizzer.Api.Exceptions;
 using Serilog;
 using Serilog.Events;
 using SharedKernel.Infrastructure;
@@ -19,6 +20,9 @@ try
 
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+
+    builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+    builder.Services.AddProblemDetails();
 
     builder.Services.RegisterSharedInfrastructure();
 
@@ -50,7 +54,7 @@ try
     }
 
     app.MigrateIdentityModuleDatabase();
-
+    app.UseExceptionHandler();
     app.UseAuthentication();
     app.UseAuthorization();
 

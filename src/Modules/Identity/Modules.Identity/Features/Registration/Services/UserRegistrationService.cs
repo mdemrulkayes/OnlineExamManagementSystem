@@ -21,11 +21,11 @@ internal class UserRegistrationService(
         }
         logger.LogInformation("Application user instance created to register user");
         var result = await userManager.CreateAsync(user.Value, command.Password);
-        if (result.Succeeded)
+        if (!result.Succeeded)
         {
-            await AssignToRole(user.Value);
+            return RegistrationErrors.IdentityError(result.Errors);
         }
-
+        await AssignToRole(user.Value);
         return result.Succeeded;
     }
 

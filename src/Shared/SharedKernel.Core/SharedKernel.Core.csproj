@@ -11,6 +11,9 @@
     <EmbeddedResource Remove=".template.config\**" />
     <None Remove=".template.config\**" />
   </ItemGroup>
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MediatR" />
