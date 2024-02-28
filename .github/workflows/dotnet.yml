@@ -6,10 +6,8 @@ name: Build and Test
 on:
   workflow_dispatch:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
+    branches: 
+      - master
 jobs:
   build:
 
@@ -22,8 +20,8 @@ jobs:
       with:
         dotnet-version: 8.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ./Quizzer.sln
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build ./Quizzer.sln --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test ./Quizzer.sln --no-build
