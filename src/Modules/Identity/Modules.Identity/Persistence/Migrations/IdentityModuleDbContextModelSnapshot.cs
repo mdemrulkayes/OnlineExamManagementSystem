@@ -47,19 +47,19 @@ namespace Modules.Identity.Persistence.Migrations
                         {
                             Id = new Guid("ac3c30c4-fcbd-4e5a-ab8b-8f6179a65120"),
                             Name = "SuperAdmin",
-                            NormalizedName = "Super Admin"
+                            NormalizedName = "SuperAdmin"
                         },
                         new
                         {
                             Id = new Guid("3123befc-4fd0-4493-b28e-46c1ed881ca4"),
                             Name = "SupportAdmin",
-                            NormalizedName = "Support Admin"
+                            NormalizedName = "SupportAdmin"
                         },
                         new
                         {
                             Id = new Guid("f0cc1d90-471c-4563-b20a-12acdb47735b"),
                             Name = "QuizAuthor",
-                            NormalizedName = "Author"
+                            NormalizedName = "QuizAuthor"
                         },
                         new
                         {

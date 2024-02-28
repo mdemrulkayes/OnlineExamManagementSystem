@@ -17,25 +17,25 @@ internal sealed class RoleConfiguration : IEntityTypeConfiguration<IdentityRole<
             {
                 Id = Guid.Parse(IdentityModuleConstants.Role.SuperAdminRoleGuid),
                 Name = RoleConstants.SuperAdmin,
-                NormalizedName = "Super Admin"
+                NormalizedName = RoleConstants.SuperAdmin
             },
             new()
             {
                 Id = Guid.Parse(IdentityModuleConstants.Role.SupportAdminRoleGuid),
                 Name = RoleConstants.SupportAdmin,
-                NormalizedName = "Support Admin"
+                NormalizedName = RoleConstants.SupportAdmin
             },
             new()
             {
                 Id = Guid.Parse(IdentityModuleConstants.Role.QuizAuthorRoleGuid),
                 Name = RoleConstants.QuizAuthor,
-                NormalizedName = "Author"
+                NormalizedName = RoleConstants.QuizAuthor
             },
             new()
             {
                 Id = Guid.Parse(IdentityModuleConstants.Role.ExamineRoleGuid),
                 Name = RoleConstants.Examine,
-                NormalizedName = "Examine"
+                NormalizedName = RoleConstants.Examine
             }
         });
     }

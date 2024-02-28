@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Modules.Identity.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialIdentityMigration : Migration
+    public partial class IdentityModuleInitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -175,10 +175,10 @@ namespace Modules.Identity.Persistence.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("3123befc-4fd0-4493-b28e-46c1ed881ca4"), null, "SupportAdmin", "Support Admin" },
+                    { new Guid("3123befc-4fd0-4493-b28e-46c1ed881ca4"), null, "SupportAdmin", "SupportAdmin" },
                     { new Guid("9d476df0-1663-43af-b06b-af945b07db45"), null, "Examine", "Examine" },
-                    { new Guid("ac3c30c4-fcbd-4e5a-ab8b-8f6179a65120"), null, "SuperAdmin", "Super Admin" },
-                    { new Guid("f0cc1d90-471c-4563-b20a-12acdb47735b"), null, "QuizAuthor", "Author" }
+                    { new Guid("ac3c30c4-fcbd-4e5a-ab8b-8f6179a65120"), null, "SuperAdmin", "SuperAdmin" },
+                    { new Guid("f0cc1d90-471c-4563-b20a-12acdb47735b"), null, "QuizAuthor", "QuizAuthor" }
                 });
 
             migrationBuilder.CreateIndex(
