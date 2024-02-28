@@ -78,6 +78,9 @@ public static class ServiceCollectionExtensions
     {
         using var scope = services.BuildServiceProvider().CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<IdentityModuleDbContext>();
-        dbContext.Database.Migrate();
+        if (dbContext.Database.IsRelational())
+        {
+            dbContext.Database.Migrate();
+        }
     }
 }
