@@ -1,4 +1,34 @@
 ﻿namespace SharedKernel.Core;
+
+public sealed class Result : IBaseResult
+{
+    public bool IsSuccess { get; }
+    public Error Error { get; }
+    public List<Error>? Errors { get; }
+
+    private Result(bool isSuccess, Error error, List<Error>? errors = null)
+    {
+        IsSuccess = isSuccess;
+        Error = error;
+        Errors = errors;
+    }
+
+    public static Result Success()
+    {
+        return new Result(true, Error.None);
+    }
+
+    public static Result NotFound()
+    {
+        return new Result(false, Error.NotFound("NotFound"));
+    }
+
+    public static Result BadRequest()
+    {
+        return new Result(false, Error.Failure("Bad Request"));
+    }
+}
+
 public sealed class Result<TValue> : IBaseResult
 {
     public bool IsSuccess { get; }
@@ -41,3 +71,4 @@ public sealed class Result<TValue> : IBaseResult
         return new Result<TValue>(errors);
     }
 }
+

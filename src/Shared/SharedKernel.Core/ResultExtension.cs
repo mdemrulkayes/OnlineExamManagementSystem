@@ -15,8 +15,8 @@ public static class ResultExtension
         {
             return Results.Problem(new ProblemDetails
             {
-                Status = StatusCodes.Status500InternalServerError,
-                Title = "Internal Server Error",
+                Status = StatusCodes.Status400BadRequest,
+                Title = "Validation Error",
                 Extensions = new Dictionary<string, object?>
                 {
                     {"errors", result.Errors}
@@ -27,8 +27,7 @@ public static class ResultExtension
         {
             Detail = result.Error.Message,
             Status = GetTitleAndStatusCode(result.Error).status,
-            Title = GetTitleAndStatusCode(result.Error).title,
-            Type = result.Error.ErrorType.ToString()
+            Title = GetTitleAndStatusCode(result.Error).title
         });
     }
 

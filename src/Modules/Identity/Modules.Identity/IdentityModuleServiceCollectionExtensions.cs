@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,19 +8,28 @@ using Modules.Identity.Constants;
 using Modules.Identity.Entities;
 using Modules.Identity.Features.Registration;
 using Microsoft.AspNetCore.Builder;
+using Serilog;
 
 namespace Modules.Identity;
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection RegisterIdentityModule(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection RegisterIdentityModule(this IServiceCollection services,
+        IConfiguration configuration,
+        ILogger logger,
+        List<Assembly> mediatRAssembly)
     {
         services
-            .RegisterIdentityDatabase(configuration)
+            .RegisterIdentityDatabase(logger, configuration)
             .RegisterUserRegistrationServices();
+
+        mediatRAssembly.Add(typeof(ServiceCollectionExtensions).Assembly);
+
+        logger.Information("{Module} registered successfully", "Identity");
+
         return services;
     }
 
-    private static IServiceCollection RegisterIdentityDatabase(this IServiceCollection services, IConfiguration configuration)
+    private static IServiceCollection RegisterIdentityDatabase(this IServiceCollection services, ILogger logger, IConfiguration configuration)
     {
         services.AddDbContext<IdentityModuleDbContext>(opt =>
         {
@@ -32,6 +42,7 @@ public static class ServiceCollectionExtensions
         });
 
         RegisterIdentity(services);
+        logger.Information("Identity module db context registered");
         return services;
     }
 
