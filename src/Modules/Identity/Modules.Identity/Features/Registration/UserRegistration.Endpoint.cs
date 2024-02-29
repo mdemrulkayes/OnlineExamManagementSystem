@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Modules.Identity.Constants;
-using Modules.Identity.Features.Registration.Services;
 using SharedKernel.Core;
 
 namespace Modules.Identity.Features.Registration;
@@ -18,9 +18,9 @@ internal static class UserRegistrationEndpoint
         return builder;
     }
 
-    private static async Task<IResult> RegisterUser(UserRegistrationCommand command, IUserRegistrationService userRegistrationService)
+    private static async Task<IResult> RegisterUser(UserRegistrationCommand command, IMediator mediator)
     {
-        var userRegistrationResult = await userRegistrationService.RegisterUser(command);
+        var userRegistrationResult = await mediator.Send(command);
         return userRegistrationResult.IsSuccess
             ? TypedResults.Ok()
             : userRegistrationResult.ConvertToProblemDetails();

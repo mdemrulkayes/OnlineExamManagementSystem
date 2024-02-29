@@ -1,36 +1,49 @@
+using System.Reflection;
+using FluentValidation;
 using Modules.Identity;
+using Modules.Identity.Features.Registration;
 using Quizzer.Api.Exceptions;
 using Serilog;
+using SharedKernel.Core.Behaviours;
 using SharedKernel.Infrastructure;
-using FluentValidation;
-using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Mvc;
 
-Log.Logger = new LoggerConfiguration()
+var logger = Log.Logger = new LoggerConfiguration()
+    .Enrich.FromLogContext()
     .WriteTo.Console()
     .WriteTo.Debug()
     .CreateLogger();
 
 try
 {
+    logger.Information("Application builder started");
     var builder = WebApplication.CreateBuilder(args);
 
     builder.Host.UseSerilog((_, loggerConfiguration) =>
     {
         loggerConfiguration.ReadFrom.Configuration(builder.Configuration);
     });
+    builder.Services.AddEndpointsApiExplorer(); //TODO: Need to replace with FastEndpoints library configuration
 
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
     builder.Services.AddProblemDetails();
 
     #region Register Modules
 
+    List<Assembly> mediatRAssemblies = [typeof(Program).Assembly];
+
     builder.Services.RegisterSharedInfrastructureModule();
-    builder.Services.RegisterIdentityModule(builder.Configuration);
+    builder.Services.RegisterIdentityModule(builder.Configuration, logger, mediatRAssemblies);
 
     #endregion
 
-    builder.Services.AddEndpointsApiExplorer(); //TODO: Need to replace with FastEndpoints library configuration
+    //Registering mediatR and pipeline behaviours
+    builder.Services.AddMediatR(opt =>
+    {
+        opt.RegisterServicesFromAssemblies(mediatRAssemblies.ToArray());
+    });
+    builder.Services.AddMediatRRequestLoggingBehaviour();
+    builder.Services.AddMediatRFluentValidationBehaviour();
+
     builder.Services.AddSwaggerGen();
 
     var app = builder.Build();
@@ -65,7 +78,7 @@ try
 }
 catch (Exception ex)
 {
-    Log.Fatal(ex, "Error occurred in the application startup. Message: {@Message}", ex.Message);
+    logger.Fatal(ex, "Error occurred in the application startup. Message: {@Message}", ex.Message);
     throw new ApplicationException("An application exception occurred at the time of start up");
 }
 finally
