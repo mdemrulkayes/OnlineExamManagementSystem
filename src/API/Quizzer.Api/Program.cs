@@ -1,27 +1,24 @@
 using Modules.Identity;
 using Quizzer.Api.Exceptions;
 using Serilog;
-using Serilog.Events;
 using SharedKernel.Infrastructure;
-using System.Reflection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
-using Modules.Identity.Features.Registration;
-
-var config = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json", optional: false)
-    .Build();
 
 Log.Logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(config.GetSection("Serilog"))
+    .WriteTo.Console()
+    .WriteTo.Debug()
     .CreateLogger();
 
 try
 {
     var builder = WebApplication.CreateBuilder(args);
 
-    builder.Host.UseSerilog();
+    builder.Host.UseSerilog((_, loggerConfiguration) =>
+    {
+        loggerConfiguration.ReadFrom.Configuration(builder.Configuration);
+    });
 
     builder.Services.AddFluentValidationAutoValidation(opt =>
     {
@@ -37,45 +34,43 @@ try
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
     builder.Services.AddProblemDetails();
 
-    builder.Services.RegisterSharedInfrastructure();
+    #region Register Modules
 
+    builder.Services.RegisterSharedInfrastructureModule();
     builder.Services.RegisterIdentityModule(builder.Configuration);
+
+    #endregion
+
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
     var app = builder.Build();
-
-    app.UseSerilogRequestLogging(options =>
-    {
-        // Customize the message template
-        options.MessageTemplate = "Handled {RequestPath}";
-
-        // Emit debug-level events instead of the defaults
-        options.GetLevel = (_, _, _) => LogEventLevel.Debug;
-
-        // Attach additional properties to the request completion event
-        options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
-        {
-            diagnosticContext.Set("RequestHost", httpContext.Request.Host.Value);
-            diagnosticContext.Set("RequestScheme", httpContext.Request.Scheme);
-        };
-    });
 
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
         app.UseSwaggerUI();
+        app.UseDeveloperExceptionPage();
     }
 
+    #region Modulewise database migration
+
     app.MigrateIdentityModuleDatabase();
+
+    #endregion
+
     app.UseExceptionHandler();
+    app.UseHttpsRedirection();
+
     app.UseAuthentication();
     app.UseAuthorization();
 
-    app.UseHttpsRedirection();
-
+    #region Map module routes
+    //TODO: Need to replace with FastEndpoint library implementation
     app.MapIdentityRoutes();
+
+    #endregion
 
     app.Run();
 }
@@ -89,4 +84,4 @@ finally
     Log.CloseAndFlush();
 }
 
-public partial class Program;
+public partial class Program; //Add this to manage test

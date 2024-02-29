@@ -4,7 +4,7 @@ using SharedKernel.Core;
 namespace SharedKernel.Infrastructure;
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection RegisterSharedInfrastructure(this IServiceCollection services)
+    public static IServiceCollection RegisterSharedInfrastructureModule(this IServiceCollection services)
     {
         return services.AddScoped<ITimeProvider, TimeProvider>();
     }

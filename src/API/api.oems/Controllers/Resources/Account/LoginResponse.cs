@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace api.oems.Controllers.Resources.Account
+﻿namespace api.oems.Controllers.Resources.Account
 {
     public class LoginResponse
     {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace api.oems.Core.Enum
+﻿namespace api.oems.Core.Enum
 {
     public class ServerRequestMessage
     {

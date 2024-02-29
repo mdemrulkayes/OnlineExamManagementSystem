@@ -1,10 +1,8 @@
-﻿using FluentValidation;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Modules.Identity.Persistence;
-using System.Reflection;
 using Modules.Identity.Constants;
 using Modules.Identity.Entities;
 using Modules.Identity.Features.Registration;

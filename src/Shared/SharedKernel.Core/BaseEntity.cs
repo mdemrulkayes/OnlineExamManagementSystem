@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace SharedKernel.Core;
+﻿namespace SharedKernel.Core;
 public abstract class BaseEntity : IBaseEntity
 {
     private readonly List<IDomainEvent> _domainEvents = new();
