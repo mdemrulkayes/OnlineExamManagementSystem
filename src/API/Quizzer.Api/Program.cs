@@ -20,17 +20,6 @@ try
         loggerConfiguration.ReadFrom.Configuration(builder.Configuration);
     });
 
-    builder.Services.AddFluentValidationAutoValidation(opt =>
-    {
-        opt.DisableDataAnnotationsValidation = true;
-    });
-    ValidatorOptions.Global.DefaultClassLevelCascadeMode = CascadeMode.Continue;
-    ValidatorOptions.Global.DefaultRuleLevelCascadeMode = CascadeMode.Stop;
-    builder.Services.AddValidatorsFromAssemblyContaining<Program>();
-
-    builder.Services.Configure<ApiBehaviorOptions>(options =>
-        options.SuppressModelStateInvalidFilter = true);
-
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
     builder.Services.AddProblemDetails();
 
@@ -41,7 +30,7 @@ try
 
     #endregion
 
-    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddEndpointsApiExplorer(); //TODO: Need to replace with FastEndpoints library configuration
     builder.Services.AddSwaggerGen();
 
     var app = builder.Build();
