@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2A4A39B4-582
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{1B5F0896-A454-469C-A133-19476E20FA32}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api.oems", "src\API\api.oems\api.oems.csproj", "{D6D00011-7C3D-4DB6-BBCD-C9EF3629CAAD}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{C7E4B668-A165-4AE3-A716-3C2424F088C8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "common", "src\Shared\common\common.csproj", "{8600300D-55EB-466F-9942-A7D4C78D2F0C}"
@@ -29,7 +27,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quizzer.Api.FunctionalTest"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{48121298-B866-4920-8FEC-29BA44617D03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel.Infrastructure", "src\Shared\SharedKernel.Infrastructure\SharedKernel.Infrastructure.csproj", "{EA0924DC-C766-4FFB-A2E0-F339F5DC7269}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedKernel.Infrastructure", "src\Shared\SharedKernel.Infrastructure\SharedKernel.Infrastructure.csproj", "{EA0924DC-C766-4FFB-A2E0-F339F5DC7269}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B90DB932-BBB6-47B1-A657-CE8F90C02F4F}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,18 +44,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D6D00011-7C3D-4DB6-BBCD-C9EF3629CAAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D6D00011-7C3D-4DB6-BBCD-C9EF3629CAAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D6D00011-7C3D-4DB6-BBCD-C9EF3629CAAD}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{D6D00011-7C3D-4DB6-BBCD-C9EF3629CAAD}.Debug|x64.Build.0 = Debug|Any CPU
-		{D6D00011-7C3D-4DB6-BBCD-C9EF3629CAAD}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D6D00011-7C3D-4DB6-BBCD-C9EF3629CAAD}.Debug|x86.Build.0 = Debug|Any CPU
-		{D6D00011-7C3D-4DB6-BBCD-C9EF3629CAAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D6D00011-7C3D-4DB6-BBCD-C9EF3629CAAD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D6D00011-7C3D-4DB6-BBCD-C9EF3629CAAD}.Release|x64.ActiveCfg = Release|Any CPU
-		{D6D00011-7C3D-4DB6-BBCD-C9EF3629CAAD}.Release|x64.Build.0 = Release|Any CPU
-		{D6D00011-7C3D-4DB6-BBCD-C9EF3629CAAD}.Release|x86.ActiveCfg = Release|Any CPU
-		{D6D00011-7C3D-4DB6-BBCD-C9EF3629CAAD}.Release|x86.Build.0 = Release|Any CPU
 		{8600300D-55EB-466F-9942-A7D4C78D2F0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8600300D-55EB-466F-9942-A7D4C78D2F0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8600300D-55EB-466F-9942-A7D4C78D2F0C}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -143,7 +134,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1B5F0896-A454-469C-A133-19476E20FA32} = {2A4A39B4-5822-4A05-9214-D24AC52484B1}
-		{D6D00011-7C3D-4DB6-BBCD-C9EF3629CAAD} = {1B5F0896-A454-469C-A133-19476E20FA32}
 		{C7E4B668-A165-4AE3-A716-3C2424F088C8} = {2A4A39B4-5822-4A05-9214-D24AC52484B1}
 		{8600300D-55EB-466F-9942-A7D4C78D2F0C} = {C7E4B668-A165-4AE3-A716-3C2424F088C8}
 		{59D2BBC7-2121-4842-A64C-62D36B7C2C08} = {C7E4B668-A165-4AE3-A716-3C2424F088C8}
