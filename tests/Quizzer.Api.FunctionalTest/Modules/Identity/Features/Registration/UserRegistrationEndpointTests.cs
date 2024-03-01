@@ -38,7 +38,7 @@ public class UserRegistrationEndpointTests(QuizzerWebApiFactory factory) : Quizz
     {
         //Arrange
 
-        var registerUserCommand = new UserRegistrationCommand("", "User", "test.user129@gmail.com", "015478455", "123456@Qa",
+        var registerUserCommand = new UserRegistrationCommand("", "User", "test.user130@gmail.com", "015478455", "123456@Qa",
             "123456@Qa", UserType.QuizAuthor);
 
         //Act
@@ -79,5 +79,26 @@ public class UserRegistrationEndpointTests(QuizzerWebApiFactory factory) : Quizz
         responseContent?.Status.Should().Be(StatusCodes.Status400BadRequest);
         responseContent?.Title.Should().Be("Identity.Registration");
         responseContent?.Detail.Should().Be("Selected User type is not valid to use this registration flow");
+    }
+
+    [Fact]
+    public async Task Should_AddCreatedDate_WhenUserRegisteredSuccessfully()
+    {
+        //Arrange
+
+        var registerUserCommand = new UserRegistrationCommand("Test", "User", "test.user127@gmail.com", "015478455", "123456@Qa",
+            "123456@Qa", UserType.QuizAuthor);
+
+        //Act
+
+        HttpResponseMessage response =
+            await HttpClient.PostAsJsonAsync(IdentityModuleConstants.Route.Register, registerUserCommand);
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var userDetails = await UserManager.FindByEmailAsync(registerUserCommand.Email);
+        userDetails.Should().NotBeNull();
+
+        userDetails?.CreatedDate.Date.Should().Be(DateTime.Today);
     }
 }

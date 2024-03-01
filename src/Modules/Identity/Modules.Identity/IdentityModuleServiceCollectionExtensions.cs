@@ -8,6 +8,7 @@ using Modules.Identity.Constants;
 using Modules.Identity.Entities;
 using Modules.Identity.Features.Registration;
 using Microsoft.AspNetCore.Builder;
+using Modules.Identity.Persistence.Interceptors;
 using Serilog;
 
 namespace Modules.Identity;
@@ -31,14 +32,16 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection RegisterIdentityDatabase(this IServiceCollection services, ILogger logger, IConfiguration configuration)
     {
-        services.AddDbContext<IdentityModuleDbContext>(opt =>
+        services.AddScoped<IdentityModuleUpdateAuditableEntityInterceptor>();
+        services.AddDbContext<IdentityModuleDbContext>((sp, opt) =>
         {
             opt.UseSqlServer(configuration.GetConnectionString("IdentityModuleDbContext"), optBuilder =>
             {
                 optBuilder.EnableRetryOnFailure(10);
-                optBuilder.MigrationsHistoryTable(IdentityModuleConstants.MigrationHistoryTableName, IdentityModuleConstants.SchemaName);
+                optBuilder.MigrationsHistoryTable(IdentityModuleConstants.MigrationHistoryTableName,
+                    IdentityModuleConstants.SchemaName);
                 optBuilder.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
-            });
+            }).AddInterceptors(sp.GetRequiredService<IdentityModuleUpdateAuditableEntityInterceptor>());
         });
 
         RegisterIdentity(services);

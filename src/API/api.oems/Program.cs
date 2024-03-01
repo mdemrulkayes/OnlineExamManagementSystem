@@ -114,7 +114,7 @@ try
     app.UseHttpsRedirection();
 
     app.UseSwagger();
-    app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "OEMS"); });
+    app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Quizzer.Api"); });
 
     app.Run();
 }
