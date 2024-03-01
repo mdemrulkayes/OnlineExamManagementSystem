@@ -36,6 +36,7 @@ public sealed class ApplicationUser : IdentityUser<Guid>, IUpdatedAuditableEntit
         {
             return RegistrationErrors.InvalidUserTypeToRegistrationFlow;
         }
+
         return new ApplicationUser(firstName, lastName, email, phoneNumber, userType, timeProvider);
     }
 }

@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Modules.Identity.Constants;
 using Modules.Identity.Entities;
 using Modules.Identity.Features.Registration.Enums;
+using Modules.Identity.Features.Registration.Events;
 using SharedKernel.Core;
 
 namespace Modules.Identity.Features.Registration.Services;
 internal class UserRegistrationService(
     UserManager<ApplicationUser> userManager,
     ITimeProvider timeProvider,
-    ILogger<UserRegistrationService> logger
+    ILogger<UserRegistrationService> logger,
+    IMediator mediator
     ) : IUserRegistrationService
 {
     public async Task<Result<bool>> RegisterUser(UserRegistrationCommand command)
@@ -26,6 +29,10 @@ internal class UserRegistrationService(
             return RegistrationErrors.IdentityError(result.Errors);
         }
         await AssignToRole(user.Value);
+
+        await mediator.Publish(new SendWelcomeEmailAfterUserRegistered(user.Value.FirstName, user.Value.LastName,
+            user.Value.Email, "Welcome to the Quizzer", timeProvider));
+
         return result.Succeeded;
     }
 
