@@ -6,7 +6,6 @@ internal sealed class UserRegistrationCommandHandler(IUserRegistrationService us
 {
     public async Task<Result<bool>> Handle(UserRegistrationCommand command, CancellationToken cancellationToken)
     {
-        var result = await userRegistrationService.RegisterUser(command);
-        return result;
+        return await userRegistrationService.RegisterUser(command);
     }
 }

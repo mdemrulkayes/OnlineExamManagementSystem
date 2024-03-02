@@ -1,15 +1,27 @@
-﻿using FluentValidation;
-using Microsoft.Extensions.DependencyInjection;
-using Modules.Identity.Features.Registration.Services;
+﻿using MediatR;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
+using Modules.Identity.Constants;
+using SharedKernel.Core;
 
 namespace Modules.Identity.Features.Registration;
 
-internal static class UserRegistration
+internal class UserRegistration : IBaseEndpoint
 {
-    internal static IServiceCollection RegisterUserRegistrationServices(this IServiceCollection services)
+    public void MapEndpoints(IEndpointRouteBuilder routeBuilder)
     {
-        services.AddScoped<IValidator<UserRegistrationCommand>, UserRegistrationCommandValidator>();
-        services.AddScoped<IUserRegistrationService, UserRegistrationService>();
-        return services;
+        routeBuilder.MapPost(IdentityModuleConstants.Route.Register, RegisterUser)
+            .WithName(nameof(IdentityModuleConstants.Route.Register))
+            .WithTags(IdentityModuleConstants.RouteTag.IdentityTagName)
+            .WithOpenApi();
+    }
+
+    private static async Task<IResult> RegisterUser(UserRegistrationCommand command, IMediator mediator)
+    {
+        var userRegistrationResult = await mediator.Send(command);
+        return userRegistrationResult.IsSuccess
+            ? TypedResults.Ok()
+            : userRegistrationResult.ConvertToProblemDetails();
     }
 }

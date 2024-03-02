@@ -2,6 +2,7 @@
 using System.Reflection;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Serilog.Context;
 
 namespace SharedKernel.Core.Behaviours;
 internal sealed class RequestLoggingBehaviour<TRequest, TResponse>(ILogger<RequestLoggingBehaviour<TRequest, TResponse>> logger) : IPipelineBehavior<TRequest, TResponse>
@@ -32,7 +33,13 @@ where TResponse : IBaseResult
 
         logger.LogInformation("Handled {RequestName} with {Response} in {ms} ms", requestName, response, stopWatch.ElapsedMilliseconds);
         stopWatch.Stop();
-        
+
+        if (response.IsSuccess) return response;
+        using (LogContext.PushProperty("@Error", response.Error, true))
+        {
+            logger.LogError("{RequestName} completed with error", requestName);
+        }
+
         return response;
     }
 }

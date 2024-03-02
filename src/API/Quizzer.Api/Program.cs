@@ -1,10 +1,9 @@
 using System.Reflection;
-using FluentValidation;
 using Modules.Identity;
-using Modules.Identity.Features.Registration;
 using Quizzer.Api.Exceptions;
 using Serilog;
 using SharedKernel.Core.Behaviours;
+using SharedKernel.Core.Extensions;
 using SharedKernel.Infrastructure;
 
 var logger = Log.Logger = new LoggerConfiguration()
@@ -33,6 +32,7 @@ try
 
     builder.Services.RegisterSharedInfrastructureModule();
     builder.Services.RegisterIdentityModule(builder.Configuration, logger, mediatRAssemblies);
+    builder.Services.RegisterEndpoints(mediatRAssemblies);
 
     #endregion
 
@@ -41,9 +41,9 @@ try
     {
         opt.RegisterServicesFromAssemblies(mediatRAssemblies.ToArray());
     });
+
     builder.Services.AddMediatRRequestLoggingBehaviour();
     builder.Services.AddMediatRFluentValidationBehaviour();
-
     builder.Services.AddSwaggerGen();
 
     var app = builder.Build();
@@ -68,11 +68,7 @@ try
     app.UseAuthentication();
     app.UseAuthorization();
 
-    #region Map module routes
-    //TODO: Need to replace with FastEndpoint library implementation
-    app.MapIdentityRoutes();
-
-    #endregion
+    app.MapEndpoints();
 
     app.Run();
 }

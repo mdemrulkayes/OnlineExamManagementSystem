@@ -10,6 +10,8 @@ using Modules.Identity.Features.Registration;
 using Microsoft.AspNetCore.Builder;
 using Modules.Identity.Persistence.Interceptors;
 using Serilog;
+using FluentValidation;
+using Modules.Identity.Features.Registration.Services;
 
 namespace Modules.Identity;
 public static class ServiceCollectionExtensions
@@ -20,17 +22,20 @@ public static class ServiceCollectionExtensions
         List<Assembly> mediatRAssembly)
     {
         services
-            .RegisterIdentityDatabase(logger, configuration)
-            .RegisterUserRegistrationServices();
+            .RegisterIdentityDatabase(logger, configuration);
 
         mediatRAssembly.Add(typeof(ServiceCollectionExtensions).Assembly);
 
+        services.AddScoped<IValidator<UserRegistrationCommand>, UserRegistrationCommandValidator>();
+        services.AddScoped<IUserRegistrationService, UserRegistrationService>();
+       
         logger.Information("{Module} registered successfully", "Identity");
 
         return services;
     }
 
-    private static IServiceCollection RegisterIdentityDatabase(this IServiceCollection services, ILogger logger, IConfiguration configuration)
+    private static void RegisterIdentityDatabase(this IServiceCollection services, ILogger logger,
+        IConfiguration configuration)
     {
         services.AddScoped<IdentityModuleUpdateAuditableEntityInterceptor>();
         services.AddDbContext<IdentityModuleDbContext>((sp, opt) =>
@@ -46,7 +51,6 @@ public static class ServiceCollectionExtensions
 
         RegisterIdentity(services);
         logger.Information("Identity module db context registered");
-        return services;
     }
 
     private static void RegisterIdentity(IServiceCollection services)

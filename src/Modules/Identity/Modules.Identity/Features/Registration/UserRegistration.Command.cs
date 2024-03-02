@@ -1,5 +1,4 @@
 ﻿using Modules.Identity.Features.Registration.Enums;
-using Modules.Identity.Features.Registration.Services;
 using SharedKernel.Core;
 
 namespace Modules.Identity.Features.Registration;
