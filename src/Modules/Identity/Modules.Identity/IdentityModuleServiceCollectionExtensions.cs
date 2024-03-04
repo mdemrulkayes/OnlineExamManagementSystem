@@ -83,6 +83,7 @@ public static class ServiceCollectionExtensions
 
         services.AddIdentityCore<ApplicationUser>()
             .AddRoles<IdentityRole<Guid>>()
+            .AddSignInManager<SignInManager<ApplicationUser>>()
             .AddEntityFrameworkStores<IdentityModuleDbContext>()
             .AddDefaultTokenProviders();
     }
