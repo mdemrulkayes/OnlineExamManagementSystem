@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Builder;
 using Modules.Identity.Persistence.Interceptors;
 using Serilog;
 using FluentValidation;
+using Modules.Identity.Features.Login;
+using Modules.Identity.Features.Login.Services;
 using Modules.Identity.Features.Registration.Services;
 
 namespace Modules.Identity;
@@ -28,6 +30,11 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IValidator<UserRegistrationCommand>, UserRegistrationCommandValidator>();
         services.AddScoped<IUserRegistrationService, UserRegistrationService>();
+
+        services.AddScoped<IValidator<LoginCommand>, LoginCommandValidator>();
+        services.AddScoped<ILoginService, LoginService>();
+
+        services.Configure<JwtConfiguration>(configuration.GetSection($"{nameof(JwtConfiguration)}"));
        
         logger.Information("{Module} registered successfully", "Identity");
 
