@@ -4,8 +4,8 @@ using SharedKernel.Core;
 namespace Modules.Identity.Features.Login;
 internal class LoginCommandHandler(ILoginService loginService) : ICommandHandler<LoginCommand, Result<LoginResponse>>
 {
-    public Task<Result<LoginResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
+    public async Task<Result<LoginResponse>> Handle(LoginCommand command, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await loginService.Login(command);
     }
 }

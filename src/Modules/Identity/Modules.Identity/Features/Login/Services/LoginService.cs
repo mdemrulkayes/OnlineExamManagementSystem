@@ -18,14 +18,22 @@ internal sealed class LoginService(
     public async Task<Result<LoginResponse>> Login(LoginCommand command)
     {
         logger.LogInformation("Inside the login method");
-        var signIn = await signInManager.PasswordSignInAsync(command.Email, command.Password, false, false);
+        var userDetails = await userManager.FindByEmailAsync(command.Email);
+
+        if (userDetails == null)
+        {
+            logger.LogError("User details not found with the email: {Email}", command.Email);
+            return LoginErrors.InvalidCredential;
+        }
+
+        var signIn = await signInManager.CheckPasswordSignInAsync(userDetails, command.Password, false);
 
         if (!signIn.Succeeded)
         {
             return LoginErrors.InvalidCredential;
         }
 
-        var loginResponse = await GenerateJwtToken(command.Email);
+        var loginResponse = GenerateJwtToken(command.Email, userDetails);
         if (!loginResponse.IsSuccess || loginResponse.Value is null)
         {
             return LoginErrors.InvalidCredential;
@@ -35,21 +43,14 @@ internal sealed class LoginService(
     }
 
 
-    private async Task<Result<LoginResponse>> GenerateJwtToken(string email)
+    private Result<LoginResponse> GenerateJwtToken(string email, ApplicationUser userDetails)
     {
-        var userDetails = await userManager.FindByEmailAsync(email);
-
-        if (userDetails == null)
-        {
-            logger.LogError("User details not found with the email: {Email}", email);
-            return LoginErrors.InvalidCredential;
-        }
-
-        var (jwtKey, expireDays, jwtIssuer, jwtAudience) = jwtConfigurationOptions.Value;
+        var jwtConfiguration = jwtConfigurationOptions.Value;
         var claims = new List<Claim>();
         if (userDetails.Email is not null)
         {
-            claims.Add(new(ClaimTypes.Email, userDetails.Email));
+            claims.Add(new(JwtRegisteredClaimNames.Email, userDetails.Email));
+            claims.Add(new(JwtRegisteredClaimNames.Sub, userDetails.Email));
         }
 
         var userRoles = userManager.GetRolesAsync(userDetails).Result.ToList();
@@ -62,13 +63,13 @@ internal sealed class LoginService(
 
         claims.Add(new Claim("UserId", userDetails.Id.ToString()));
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
-        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-        var expires = DateTime.UtcNow.AddDays(Convert.ToInt32(expireDays));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfiguration.JwtKey));
+        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
+        var expires = DateTime.UtcNow.AddDays(Convert.ToInt32(jwtConfiguration.JwtExpireDay));
 
         var token = new JwtSecurityToken(
-            issuer: jwtIssuer,
-            audience: jwtIssuer,
+            issuer: jwtConfiguration.JwtIssuer,
+            audience: jwtConfiguration.JwtAudience,
             claims: claims,
             expires: expires,
             signingCredentials: credentials

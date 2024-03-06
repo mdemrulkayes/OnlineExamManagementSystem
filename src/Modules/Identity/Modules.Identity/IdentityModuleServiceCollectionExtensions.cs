@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +12,8 @@ using Microsoft.AspNetCore.Builder;
 using Modules.Identity.Persistence.Interceptors;
 using Serilog;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Modules.Identity.Features.Login;
 using Modules.Identity.Features.Login.Services;
 using Modules.Identity.Features.Registration.Services;
@@ -34,7 +37,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IValidator<LoginCommand>, LoginCommandValidator>();
         services.AddScoped<ILoginService, LoginService>();
 
-        services.Configure<JwtConfiguration>(configuration.GetSection($"{nameof(JwtConfiguration)}"));
+        services.Configure<JwtConfiguration>(configuration.GetSection(nameof(JwtConfiguration)));
        
         logger.Information("{Module} registered successfully", "Identity");
 
@@ -56,11 +59,11 @@ public static class ServiceCollectionExtensions
             }).AddInterceptors(sp.GetRequiredService<IdentityModuleUpdateAuditableEntityInterceptor>());
         });
 
-        RegisterIdentity(services);
+        RegisterIdentity(services, configuration);
         logger.Information("Identity module db context registered");
     }
 
-    private static void RegisterIdentity(IServiceCollection services)
+    private static void RegisterIdentity(IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<IdentityOptions>(options =>
         {
@@ -76,10 +79,33 @@ public static class ServiceCollectionExtensions
             options.SignIn.RequireConfirmedPhoneNumber = false;
         });
 
-        services.AddAuthentication()
-            .AddBearerToken(IdentityConstants.BearerScheme);
+        var jwtConfig = configuration
+            .GetSection(nameof(JwtConfiguration))
+            .Get<JwtConfiguration>();
 
-        services.AddAuthorizationBuilder();
+        services.AddAuthentication(opt =>
+        {
+            opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(opt =>
+        {
+            opt.Audience = jwtConfig?.JwtAudience;
+            opt.SaveToken = true;
+            opt.TokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidAudience = jwtConfig?.JwtAudience,
+                ValidIssuer = jwtConfig?.JwtIssuer,
+                IssuerSigningKey = new SymmetricSecurityKey
+                    (Encoding.UTF8.GetBytes(jwtConfig.JwtKey)),
+                ValidateAudience = true,
+                ValidateIssuer = true,
+                ValidateLifetime = false,
+                ValidateIssuerSigningKey = true
+            };
+        });
+
+        services.AddAuthorization();
 
         services.AddIdentityCore<ApplicationUser>()
             .AddRoles<IdentityRole<Guid>>()
