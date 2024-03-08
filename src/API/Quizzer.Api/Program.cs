@@ -1,7 +1,9 @@
 using System.Reflection;
 using Modules.Identity;
 using Quizzer.Api.Exceptions;
+using Quizzer.Api.Services;
 using Serilog;
+using SharedKernel.Core;
 using SharedKernel.Core.Behaviours;
 using SharedKernel.Core.Extensions;
 using SharedKernel.Infrastructure;
@@ -22,6 +24,9 @@ try
         loggerConfiguration.ReadFrom.Configuration(builder.Configuration);
     });
     builder.Services.AddEndpointsApiExplorer(); //TODO: Need to replace with FastEndpoints library configuration
+
+    builder.Services.AddScoped<IUser, CurrentUser>();
+    builder.Services.AddHttpContextAccessor();
 
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
     builder.Services.AddProblemDetails();

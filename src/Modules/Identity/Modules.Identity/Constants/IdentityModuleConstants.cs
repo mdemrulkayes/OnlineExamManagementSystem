@@ -5,6 +5,7 @@ internal struct IdentityModuleConstants
     {
         internal const string Register = "/api/identity/register";
         internal const string Login = "/api/identity/login";
+        public static string Profile = "/api/identity/profile";
     }
 
     internal struct RouteTag
