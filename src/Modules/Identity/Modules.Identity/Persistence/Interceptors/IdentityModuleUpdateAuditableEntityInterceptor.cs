@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using SharedKernel.Core;
 
 namespace Modules.Identity.Persistence.Interceptors;
-internal sealed class IdentityModuleUpdateAuditableEntityInterceptor(ITimeProvider timeProvider) : SaveChangesInterceptor
+internal sealed class IdentityModuleUpdateAuditableEntityInterceptor(ITimeProvider timeProvider, IUser user) : SaveChangesInterceptor
 {
     public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result,
         CancellationToken cancellationToken = default)
@@ -24,7 +24,10 @@ internal sealed class IdentityModuleUpdateAuditableEntityInterceptor(ITimeProvid
             switch (entry.State)
             {
                 case EntityState.Modified:
-                    entry.Entity.UpdatedBy = Guid.NewGuid(); //TODO: Need to get User ID from the HttpContext
+                    entry.Entity.UpdatedBy =
+                        user.Id != null ? 
+                        Guid.Parse(user.Id) : 
+                        null;
                     entry.Entity.UpdatedDate = timeProvider.TimeNow;
                     break;
             }
