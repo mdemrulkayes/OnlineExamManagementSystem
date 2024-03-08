@@ -21,13 +21,7 @@ internal sealed class UserProfileQueryHandler(IUser user,
 
         var userRoles = await userManager.GetRolesAsync(userDetails);
 
-        return new UserProfileResponse()
-        {
-            Email = userDetails.Email,
-            LastName = userDetails.LastName,
-            FirstName = userDetails.FirstName,
-            UserId = userDetails.Id,
-            Roles = userRoles
-        };
+        return new UserProfileResponse(userDetails.Id, userDetails.FirstName, userDetails.LastName, userDetails.Email,
+            userRoles);
     }
 }
