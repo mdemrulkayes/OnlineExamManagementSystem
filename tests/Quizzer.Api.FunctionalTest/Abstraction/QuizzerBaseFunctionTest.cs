@@ -5,6 +5,7 @@ using Modules.Identity.Features.Registration.Enums;
 using Modules.Identity.Features.Registration;
 using Modules.Identity.Constants;
 using System.Net.Http.Json;
+using Bogus;
 using Modules.Identity.Features.Login;
 
 namespace Quizzer.Api.FunctionalTest.Abstraction;
@@ -44,15 +45,16 @@ public class QuizzerBaseFunctionTest
 
     private static List<UserRegistrationCommand> GenerateRegisterUserCommand()
     {
+        var faker = new Faker();
         return
         [
-            new UserRegistrationCommand("test", "one", "test1@gmail.com", "144574745", "Aa123456#", "Aa123456#",
+            new UserRegistrationCommand(faker.Name.FirstName(), faker.Name.LastName(), "test1@gmail.com", faker.Phone.PhoneNumber(), "Aa123456#", "Aa123456#",
                 UserType.Examine),
 
-            new UserRegistrationCommand("test", "two", "test2@gmail.com", "144574745", "Aa123456!", "Aa123456!",
+            new UserRegistrationCommand(faker.Name.FirstName(), faker.Name.LastName(), "test2@gmail.com", faker.Phone.PhoneNumber(), "Aa123456!", "Aa123456!",
                 UserType.QuizAuthor),
 
-            new UserRegistrationCommand("test", "three", "test3@gmail.com", "144574745", "Aa123456%", "Aa123456%",
+            new UserRegistrationCommand(faker.Name.FirstName(), faker.Name.LastName(), "test3@gmail.com", faker.Phone.PhoneNumber(), "Aa123456%", "Aa123456%",
                 UserType.QuizAuthor)
         ];
     }

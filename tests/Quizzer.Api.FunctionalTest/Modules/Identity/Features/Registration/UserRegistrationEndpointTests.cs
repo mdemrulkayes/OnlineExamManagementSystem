@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using Bogus;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,8 +19,7 @@ public class UserRegistrationEndpointTests(QuizzerWebApiFactory factory) : Quizz
     {
         //Arrange
 
-        var registerUserCommand = new UserRegistrationCommand("Test", "User", "test.user123@gmail.com", "015478455", "123456@Qa",
-            "123456@Qa", UserType.QuizAuthor);
+        var registerUserCommand = GenerateUserRegistrationCommand(UserType.QuizAuthor);
 
         //Act
 
@@ -38,8 +38,12 @@ public class UserRegistrationEndpointTests(QuizzerWebApiFactory factory) : Quizz
     {
         //Arrange
 
-        var registerUserCommand = new UserRegistrationCommand("", "User", "test.user130@gmail.com", "015478455", "123456@Qa",
-            "123456@Qa", UserType.QuizAuthor);
+        var registerUserCommand = GenerateUserRegistrationCommand(UserType.QuizAuthor);
+
+        registerUserCommand = registerUserCommand with
+        {
+            FirstName = ""
+        };
 
         //Act
 
@@ -62,8 +66,7 @@ public class UserRegistrationEndpointTests(QuizzerWebApiFactory factory) : Quizz
     {
         //Arrange
 
-        var registerUserCommand = new UserRegistrationCommand("Test", "User", "test.user129@gmail.com", "015478455", "123456@Qa",
-            "123456@Qa", userType);
+        var registerUserCommand = GenerateUserRegistrationCommand(userType);
 
         //Act
 
@@ -86,8 +89,7 @@ public class UserRegistrationEndpointTests(QuizzerWebApiFactory factory) : Quizz
     {
         //Arrange
 
-        var registerUserCommand = new UserRegistrationCommand("Test", "User", "test.user127@gmail.com", "015478455", "123456@Qa",
-            "123456@Qa", UserType.QuizAuthor);
+        var registerUserCommand = GenerateUserRegistrationCommand(UserType.QuizAuthor);
 
         //Act
 
@@ -101,4 +103,24 @@ public class UserRegistrationEndpointTests(QuizzerWebApiFactory factory) : Quizz
 
         userDetails?.CreatedDate.Date.Should().Be(DateTime.Today);
     }
+
+    #region Private methods
+
+    private static UserRegistrationCommand GenerateUserRegistrationCommand(UserType userType)
+    {
+        var command = new Faker<UserRegistrationCommand>()
+            .CustomInstantiator(f => new UserRegistrationCommand(
+                f.Name.FirstName(),
+                f.Name.LastName(),
+                f.Internet.Email(),
+                f.Phone.PhoneNumber(),
+                "123456@Qa",
+                "123456@Qa",
+                userType))
+            .Generate();
+        return command;
+    }
+
+
+    #endregion
 }
