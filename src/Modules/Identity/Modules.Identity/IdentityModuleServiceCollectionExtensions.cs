@@ -97,7 +97,7 @@ public static class ServiceCollectionExtensions
                 ValidAudience = jwtConfig?.JwtAudience,
                 ValidIssuer = jwtConfig?.JwtIssuer,
                 IssuerSigningKey = new SymmetricSecurityKey
-                    (Encoding.UTF8.GetBytes(jwtConfig.JwtKey)),
+                    (Encoding.UTF8.GetBytes(jwtConfig!.JwtKey)),
                 ValidateAudience = true,
                 ValidateIssuer = true,
                 ValidateLifetime = false,
