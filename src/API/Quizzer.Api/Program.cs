@@ -1,5 +1,6 @@
 using System.Reflection;
 using Modules.Identity;
+using Modules.Question.Infrastructure;
 using Quizzer.Api.Exceptions;
 using Quizzer.Api.Services;
 using Serilog;
@@ -37,6 +38,9 @@ try
 
     builder.Services.RegisterSharedInfrastructureModule();
     builder.Services.RegisterIdentityModule(builder.Configuration, logger, mediatRAssemblies);
+
+    builder.Services.RegisterQuestionModuleInfrastructure(logger, builder.Configuration, mediatRAssemblies);
+
     builder.Services.RegisterEndpoints(mediatRAssemblies);
 
     #endregion

@@ -8,12 +8,31 @@ public sealed class Question : BaseAuditableEntity
     public string AskedQuestion { get; private set; }
     public string Discussion { get; private set; }
 
-    public int QuestionMark { get; private set; }
+    public int? QuestionMark { get; private set; }
 
     public long QuestionSetId { get; private set; }
     public QuestionSet QuestionSet { get; private set; }
 
-    public IReadOnlyCollection<QuestionOption> Options => new ReadOnlyCollection<QuestionOption>(QuestionOptions);
+    public IReadOnlyCollection<QuestionOption> Options => new ReadOnlyCollection<QuestionOption>(_questionOptions);
 
-    internal List<QuestionOption> QuestionOptions = [];
+    internal List<QuestionOption> _questionOptions = [];
+
+    private Question(string askedQuestion, string discussion = "", int? questionMark = null)
+    {
+        AskedQuestion = askedQuestion;
+        Discussion = discussion;
+        QuestionMark = questionMark;
+    }
+
+    public static Result<Question> Create(string askedQuestion, string discussion = "", int? mark = null)
+    {
+        return new Question(askedQuestion, discussion, mark);
+    }
+
+    public void AddQuestionOptions(string optionText, bool isAnswer = false)
+    {
+        var questionOption = QuestionOption.AddQuestionOption(optionText, isAnswer).Value;
+        if (questionOption != null)
+            _questionOptions.Add(questionOption);
+    }
 }

@@ -15,5 +15,17 @@ internal sealed class QuestionSetConfiguration : IEntityTypeConfiguration<Questi
             .Property(x => x.Name)
             .HasMaxLength(50)
             .IsRequired();
+
+        builder.Property(x => x.Details)
+            .HasMaxLength(200);
+
+        builder.Property(x => x.SetCode)
+            .HasMaxLength(10);
+
+        builder.HasMany(x => x.Questions)
+            .WithOne(x => x.QuestionSet)
+            .HasForeignKey(x => x.QuestionSetId);
+
+        builder.HasQueryFilter(x => x.DeletedDate == null);
     }
 }

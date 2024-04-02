@@ -9,6 +9,9 @@ internal sealed class QuestionModuleDbContext(DbContextOptions<QuestionModuleDbC
 {
     public DbSet<QuestionSet> QuestionSets { get; set; }
     public DbSet<QuestionCore> Questions { get; set; }
+    public DbSet<QuestionOption> QuestionOptions { get; set; }
+    public DbSet<QuestionSetTag> QuestionSetTags { get; set; }
+
     public DbSet<Tag> Tags { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)

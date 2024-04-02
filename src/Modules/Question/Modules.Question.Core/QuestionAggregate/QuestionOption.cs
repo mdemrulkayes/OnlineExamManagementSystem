@@ -9,4 +9,15 @@ public sealed class QuestionOption : BaseAuditableEntity
     public bool IsAnswer { get; private set; }
 
     public Question Question { get; private set; }
+
+    private QuestionOption(string optionText, bool isAnswer = false)
+    {
+        OptionText = optionText;
+        IsAnswer = isAnswer;
+    }
+
+    public static Result<QuestionOption> AddQuestionOption(string text, bool isAnswer)
+    {
+        return new QuestionOption(text, isAnswer);
+    }
 }
