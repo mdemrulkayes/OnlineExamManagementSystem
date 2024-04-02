@@ -16,7 +16,7 @@ public static class ServiceCollectionExtensions
         List<Assembly> mediatRAssembly)
     {
         mediatRAssembly.Add(typeof(ServiceCollectionExtensions).Assembly);
-        services.AddDbContext<QuestionModuleDbContext>((sp, opt) =>
+        services.AddDbContext<QuestionModuleDbContext>((_, opt) =>
         {
             opt.UseSqlServer(configuration.GetConnectionString("QuestionModuleDbContext"), optBuilder =>
             {
