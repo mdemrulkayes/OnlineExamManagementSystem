@@ -13,7 +13,8 @@ internal sealed class LoginService(
     UserManager<ApplicationUser> userManager,
     SignInManager<ApplicationUser> signInManager,
     IOptions<JwtConfiguration> jwtConfigurationOptions,
-    ILogger<LoginService> logger) : ILoginService
+    ILogger<LoginService> logger,
+    ITimeProvider timeProvider) : ILoginService
 {
     public async Task<Result<LoginResponse>> Login(LoginCommand command)
     {
@@ -39,7 +40,24 @@ internal sealed class LoginService(
             return LoginErrors.InvalidCredential;
         }
 
+        await UpdateUserLastLogin(userDetails);
+
         return loginResponse.Value;
+    }
+
+    private async Task UpdateUserLastLogin(ApplicationUser user)
+    {
+        try
+        {
+            user.UpdateLastLoginTime(timeProvider);
+
+            await userManager.UpdateAsync(user);
+        }
+        catch (Exception e)
+        {
+            logger.LogError("Error occurred while saving user last login information. UserGuid: {userGuid}", user.Id);
+            logger.LogError("Exception {exception}", e);
+        }
     }
 
 

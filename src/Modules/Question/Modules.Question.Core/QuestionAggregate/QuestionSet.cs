@@ -12,4 +12,8 @@ public sealed class QuestionSet : BaseAuditableEntity, IAggregateRoot
     public IReadOnlyCollection<QuestionSetTag> Tags => new ReadOnlyCollection<QuestionSetTag>(QuestionSetTags);
 
     internal List<QuestionSetTag> QuestionSetTags = [];
+
+    public IReadOnlyCollection<Question> Questions => new ReadOnlyCollection<Question>(_questions);
+
+    internal List<Question> _questions = [];
 }

@@ -28,5 +28,7 @@ internal sealed class TagConfiguration : IEntityTypeConfiguration<Tag>
         builder
             .Property(x => x.Description)
             .HasMaxLength(150);
+
+        builder.HasQueryFilter(x => x.DeletedDate == null);
     }
 }

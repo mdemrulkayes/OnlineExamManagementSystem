@@ -79,7 +79,7 @@ try
 }
 catch (Exception ex)
 {
-    logger.Fatal(ex, "Error occurred in the application startup. Message: {@Message}", ex.Message);
+    logger.Fatal(ex, "Error occurred in the application startup. Exception: {@Message}", ex.Message);
     throw new ApplicationException("An application exception occurred at the time of start up");
 }
 finally

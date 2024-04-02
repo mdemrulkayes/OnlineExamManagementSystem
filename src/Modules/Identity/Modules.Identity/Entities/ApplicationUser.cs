@@ -14,6 +14,8 @@ public sealed class ApplicationUser : IdentityUser<Guid>, IUpdatedAuditableEntit
     public Guid? UpdatedBy { get; set; }
     public DateTimeOffset? UpdatedDate { get; set; }
 
+    public DateTimeOffset? LastLoginTime { get; set; }
+
     private ApplicationUser()
     {
         
@@ -38,5 +40,11 @@ public sealed class ApplicationUser : IdentityUser<Guid>, IUpdatedAuditableEntit
         }
 
         return new ApplicationUser(firstName, lastName, email, phoneNumber, userType, timeProvider);
+    }
+
+    internal void UpdateLastLoginTime(ITimeProvider timeProvider)
+    {
+        LastLoginTime = timeProvider.TimeNow;
+        UpdatedDate = timeProvider.TimeNow;
     }
 }
