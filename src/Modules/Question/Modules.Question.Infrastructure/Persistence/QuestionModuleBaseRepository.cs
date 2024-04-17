@@ -1,52 +1,55 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Modules.Question.Infrastructure.Data;
 using SharedKernel.Core;
 using SharedKernel.Core.Extensions;
 
-namespace SharedKernel.Infrastructure;
-public class BaseRepository<TEntity>(DbContext context) : IRepository<TEntity>
+namespace Modules.Question.Infrastructure.Persistence;
+public class BaseRepository<TEntity>(QuestionModuleDbContext context) : IRepository<TEntity>
     where TEntity : BaseEntity
 {
+    private readonly DbSet<TEntity> _dbSet = context.Set<TEntity>();
+
     public virtual TEntity Add(TEntity entity)
     {
-        return context.Set<TEntity>().Add(entity).Entity;
+        return _dbSet.Add(entity).Entity;
     }
 
     public virtual async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> expression)
     {
-        return await context.Set<TEntity>().AnyAsync(expression);
+        return await _dbSet.AnyAsync(expression);
     }
 
     public virtual TEntity Delete(TEntity entity)
     {
-        return context.Set<TEntity>().Remove(entity).Entity;
+        return _dbSet.Remove(entity).Entity;
     }
 
     public virtual async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? expression = null, CancellationToken cancellationToken = default)
     {
         if (expression != null)
-            return await context.Set<TEntity>().Where(expression)
+            return await _dbSet.Where(expression)
                 .ToListAsync(cancellationToken);
-        return await context.Set<TEntity>()
+        return await _dbSet
             .ToListAsync(cancellationToken);
     }
 
     public virtual async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> expression, string includeProperties = "")
     {
-        return await context.Set<TEntity>().FirstOrDefaultAsync(expression);
+        return await _dbSet.FirstOrDefaultAsync(expression);
     }
 
     public virtual async Task<PaginatedList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? expression = null, int pageNumber = 1, int pageSize = 10, CancellationToken cancellationToken = default)
     {
         if (expression != null)
-            return await context.Set<TEntity>().Where(expression)
+            return await _dbSet.Where(expression)
                 .ToPaginatedListAsync(pageNumber, pageSize, cancellationToken);
-        return await context.Set<TEntity>()
+        return await _dbSet
             .ToPaginatedListAsync(pageNumber, pageSize, cancellationToken);
     }
 
     public virtual TEntity Update(TEntity entity)
     {
-       return context.Set<TEntity>().Update(entity).Entity;
+       return _dbSet.Update(entity).Entity;
     }
 }

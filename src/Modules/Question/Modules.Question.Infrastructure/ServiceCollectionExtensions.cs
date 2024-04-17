@@ -7,7 +7,9 @@ using Modules.Question.Infrastructure.Data;
 using Serilog;
 using System.Reflection;
 using Modules.Question.Core.Tag;
+using Modules.Question.Infrastructure.Persistence;
 using Modules.Question.Infrastructure.Tag;
+using SharedKernel.Core;
 
 namespace Modules.Question.Infrastructure;
 public static class ServiceCollectionExtensions
@@ -39,6 +41,8 @@ public static class ServiceCollectionExtensions
 
     private static void RegisterRepositories(IServiceCollection services)
     {
+        services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ITagRepository, TagRepository>();
     }
 

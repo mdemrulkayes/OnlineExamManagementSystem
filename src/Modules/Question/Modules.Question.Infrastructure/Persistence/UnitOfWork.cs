@@ -1,15 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Modules.Question.Infrastructure.Data;
 using SharedKernel.Core;
 
-namespace SharedKernel.Infrastructure;
-internal class UnitOfWork(DbContext dbContext) : IUnitOfWork
+namespace Modules.Question.Infrastructure.Persistence;
+internal class UnitOfWork(QuestionModuleDbContext dbContext) : IUnitOfWork
 {
     private bool _disposed;
     
     public async Task<int> CommitAsync(CancellationToken cancellationToken)
     {
-        var itemSaved = await dbContext.SaveChangesAsync(cancellationToken);
-        return itemSaved;
+        return await dbContext.SaveChangesAsync(cancellationToken);
     }
 
     ~UnitOfWork()

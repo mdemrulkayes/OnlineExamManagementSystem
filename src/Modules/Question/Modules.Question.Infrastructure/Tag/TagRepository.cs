@@ -1,6 +1,6 @@
 ﻿using Modules.Question.Core.Tag;
 using Modules.Question.Infrastructure.Data;
-using SharedKernel.Infrastructure;
+using Modules.Question.Infrastructure.Persistence;
 
 namespace Modules.Question.Infrastructure.Tag;
 
