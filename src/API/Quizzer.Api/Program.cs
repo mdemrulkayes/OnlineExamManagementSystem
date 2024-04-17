@@ -1,5 +1,6 @@
 using System.Reflection;
 using Modules.Identity;
+using Modules.Question.Endpoints;
 using Modules.Question.Infrastructure;
 using Quizzer.Api.Exceptions;
 using Quizzer.Api.Services;
@@ -34,16 +35,15 @@ try
 
     #region Register Modules
 
-    List<Assembly> mediatRAssemblies = [typeof(Program).Assembly];
+    List<Assembly> mediatRAssemblies = [typeof(Quizzer.Api.Program).Assembly];
 
     builder.Services.RegisterSharedInfrastructureModule();
     builder.Services.RegisterIdentityModule(builder.Configuration, logger, mediatRAssemblies);
-
-    builder.Services.RegisterQuestionModuleInfrastructure(logger, builder.Configuration, mediatRAssemblies);
-
-    builder.Services.RegisterEndpoints(mediatRAssemblies);
+    builder.Services.RegisterQuestionModule(builder.Configuration, logger, mediatRAssemblies);
 
     #endregion
+
+    builder.Services.RegisterEndpoints(mediatRAssemblies);
 
     //Registering mediatR and pipeline behaviours
     builder.Services.AddMediatR(opt =>
@@ -68,6 +68,7 @@ try
     #region Modulewise database migration
 
     app.MigrateIdentityModuleDatabase();
+    app.MigrateQuestionModuleDatabase();
 
     #endregion
 
@@ -91,4 +92,7 @@ finally
     Log.CloseAndFlush();
 }
 
-public partial class Program; //Add this to manage test
+namespace Quizzer.Api
+{
+    public partial class Program; //Add this to manage test
+}

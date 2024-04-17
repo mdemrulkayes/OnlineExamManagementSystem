@@ -6,6 +6,8 @@ using Modules.Question.Application.Common;
 using Modules.Question.Infrastructure.Data;
 using Serilog;
 using System.Reflection;
+using Modules.Question.Core.Tag;
+using Modules.Question.Infrastructure.Tag;
 
 namespace Modules.Question.Infrastructure;
 public static class ServiceCollectionExtensions
@@ -27,7 +29,17 @@ public static class ServiceCollectionExtensions
             });
         });
         logger.Information("Question module db context registered");
+
+        services.AddScoped<DbContext, QuestionModuleDbContext>();
+
+        RegisterRepositories(services);
+
         return services;
+    }
+
+    private static void RegisterRepositories(IServiceCollection services)
+    {
+        services.AddScoped<ITagRepository, TagRepository>();
     }
 
     public static IApplicationBuilder MigrateQuestionModuleDatabase(this IApplicationBuilder app)

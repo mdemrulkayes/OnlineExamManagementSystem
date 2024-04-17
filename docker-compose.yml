@@ -10,6 +10,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__IdentityModuleDbContext: "Server=quizzer-db;database=Quizzer;User Id=sa;Password=Pass@word;Encrypt=false"
+      ConnectionStrings__QuestionModuleDbContext: "Server=quizzer-db;database=Quizzer;User Id=sa;Password=Pass@word;Encrypt=false"
     ports:
        - "50000:50000"
        - "50001:50001"

@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\common\common.csproj" />
     <ProjectReference Include="..\Modules.Question.Core\Modules.Question.Core.csproj" />
   </ItemGroup>
 

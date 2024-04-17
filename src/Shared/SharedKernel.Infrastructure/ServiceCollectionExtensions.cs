@@ -6,6 +6,9 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection RegisterSharedInfrastructureModule(this IServiceCollection services)
     {
-        return services.AddScoped<ITimeProvider, TimeProvider>();
+        services.AddScoped<ITimeProvider, TimeProvider>()
+            .AddScoped(typeof(IRepository<>), typeof(BaseRepository<>))
+            .AddScoped<IUnitOfWork, UnitOfWork>();
+        return services;
     }
 }

@@ -1,15 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Modules.Question.Core.Tag;
 
 namespace Modules.Question.Infrastructure.Data.Configuration;
-internal sealed class TagConfiguration : IEntityTypeConfiguration<Tag>
+internal sealed class TagConfiguration : IEntityTypeConfiguration<Core.Tag.Tag>
 {
     /// <summary>
     ///     Configures the entity of type <typeparamref name="TEntity" />.
     /// </summary>
     /// <param name="builder">The builder to be used to configure the entity type.</param>
-    public void Configure(EntityTypeBuilder<Tag> builder)
+    public void Configure(EntityTypeBuilder<Core.Tag.Tag> builder)
     {
         builder.ToTable("Tag");
 
