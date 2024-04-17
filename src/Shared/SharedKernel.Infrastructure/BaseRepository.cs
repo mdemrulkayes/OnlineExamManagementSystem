@@ -7,9 +7,9 @@ namespace SharedKernel.Infrastructure;
 public class BaseRepository<TEntity>(DbContext context) : IRepository<TEntity>
     where TEntity : BaseEntity
 {
-    public virtual void Add(TEntity entity)
+    public virtual TEntity Add(TEntity entity)
     {
-        context.Set<TEntity>().Add(entity);
+        return context.Set<TEntity>().Add(entity).Entity;
     }
 
     public virtual async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> expression)
@@ -17,9 +17,9 @@ public class BaseRepository<TEntity>(DbContext context) : IRepository<TEntity>
         return await context.Set<TEntity>().AnyAsync(expression);
     }
 
-    public virtual void Delete(TEntity entity)
+    public virtual TEntity Delete(TEntity entity)
     {
-        context.Set<TEntity>().Remove(entity);
+        return context.Set<TEntity>().Remove(entity).Entity;
     }
 
     public virtual async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? expression = null, CancellationToken cancellationToken = default)
@@ -45,8 +45,8 @@ public class BaseRepository<TEntity>(DbContext context) : IRepository<TEntity>
             .ToPaginatedListAsync(pageNumber, pageSize, cancellationToken);
     }
 
-    public virtual void Update(TEntity entity)
+    public virtual TEntity Update(TEntity entity)
     {
-        context.Set<TEntity>().Update(entity);
+       return context.Set<TEntity>().Update(entity).Entity;
     }
 }

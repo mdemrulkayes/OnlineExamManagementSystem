@@ -4,8 +4,8 @@ namespace SharedKernel.Core;
 public interface IRepository<TEntity> : IReadRepository<TEntity>
     where TEntity : BaseEntity
 {
-    void Add(TEntity entity);
-    void Update(TEntity entity);
+    TEntity Add(TEntity entity);
+    TEntity Update(TEntity entity);
 
-    void Delete(TEntity entity);
+    TEntity Delete(TEntity entity);
 }

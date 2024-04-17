@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Modules.Identity.Persistence;
+using Modules.Question.Infrastructure.Data;
 using Testcontainers.MsSql;
 
 namespace Quizzer.Api.FunctionalTest.Abstraction;
@@ -25,14 +26,27 @@ public class QuizzerWebApiFactory : WebApplicationFactory<Program>, IAsyncLifeti
             var descriptorType =
                 typeof(DbContextOptions<IdentityModuleDbContext>);
 
-            var descriptor = services
-                .SingleOrDefault(s => s.ServiceType == descriptorType);
+            var questionModuleDbContextDescriptor = typeof(DbContextOptions<QuestionModuleDbContext>);
 
-            if (descriptor is not null)
+            var descriptor = services
+                .Where(s => s.ServiceType == descriptorType || s.ServiceType == questionModuleDbContextDescriptor)
+                .ToList();
+
+
+
+            if (descriptor.Any())
             {
-                services.Remove(descriptor);
+                foreach (var serviceDescriptor in descriptor)
+                {
+                    services.Remove(serviceDescriptor);
+                }
             }
             services.AddDbContext<IdentityModuleDbContext>(opt =>
+            {
+                opt.UseSqlServer(cs);
+            });
+
+            services.AddDbContext<QuestionModuleDbContext>(opt =>
             {
                 opt.UseSqlServer(cs);
             });

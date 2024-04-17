@@ -23,7 +23,7 @@ public sealed class Tag : BaseAuditableEntity
             return TagErrors.TagNameCanNotBeEmptyValidation;
         }
 
-        if (!string.IsNullOrWhiteSpace(description) && description.Length is <= TagConstants.TagDescriptionMinLength or >= TagConstants.TagDescriptionMaxLength)
+        if (!string.IsNullOrWhiteSpace(description) && description.Length is < TagConstants.TagDescriptionMinLength or > TagConstants.TagDescriptionMaxLength)
         {
             return TagErrors.TagDescriptionValidation;
         }

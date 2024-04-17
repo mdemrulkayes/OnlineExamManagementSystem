@@ -8,7 +8,8 @@ internal class UnitOfWork(DbContext dbContext) : IUnitOfWork
     
     public async Task<int> CommitAsync(CancellationToken cancellationToken)
     {
-        return await dbContext.SaveChangesAsync(cancellationToken);
+        var itemSaved = await dbContext.SaveChangesAsync(cancellationToken);
+        return itemSaved;
     }
 
     ~UnitOfWork()

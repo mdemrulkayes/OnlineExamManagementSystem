@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Net;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SharedKernel.Core;
@@ -29,6 +30,11 @@ public static class ResultExtension
             Status = GetTitleAndStatusCode(result.Error).status,
             Title = GetTitleAndStatusCode(result.Error).title
         });
+    }
+
+    public static IResult ConvertToResult<T>(this Result<T> result)
+    {
+        return result.IsSuccess ? TypedResults.Ok(result.Value) : result.ConvertToProblemDetails();
     }
 
     private static (int status, string title) GetTitleAndStatusCode(Error error)
