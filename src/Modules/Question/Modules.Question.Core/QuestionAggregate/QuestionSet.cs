@@ -17,16 +17,25 @@ public sealed class QuestionSet : BaseAuditableEntity, IAggregateRoot
 
     internal List<Question> _questions = [];
 
-    private QuestionSet(string name, string setCode = "", string details = "")
+    private QuestionSet(string name, string? setCode = "", string? details = "")
     {
         Name = name;
         SetCode = setCode;
         Details = details;
     }
 
-    public static Result<QuestionSet> Create(string name, string setCode, string details)
+    public static Result<QuestionSet> Create(string name, string? setCode, string? details)
     {
         return new QuestionSet(name, setCode, details);
+    }
+
+    public Result<QuestionSet> Update(string name, string? setCode, string? details)
+    {
+        Name = name;
+        SetCode = setCode;
+        Details = details;
+
+        return this;
     }
 
     public void AddQuestion(string askedQuestion, Dictionary<string, bool> options,string discussion = "", int? mark = null)

@@ -18,31 +18,31 @@ internal class Tag : IBaseEndpoint
     public void MapEndpoints(IEndpointRouteBuilder routeBuilder)
     {
         routeBuilder
-            .MapGet(QuestionModuleConstants.Route.GetAllTags, GetAllTags)
+            .MapGet(QuestionModuleConstants.Route.TagRoute.GetAllTags, GetAllTags)
             .Produces((int)HttpStatusCode.OK, typeof(PagedListDto<TagResponse>))
             .ProducesValidationProblem()
             .WithTags(QuestionModuleConstants.RouteTag.TagEndPointTagName)
             .RequireAuthorization();
 
-        routeBuilder.MapGet(QuestionModuleConstants.Route.GetTagDetailsById, GetTagDetailsById)
+        routeBuilder.MapGet(QuestionModuleConstants.Route.TagRoute.GetTagDetailsById, GetTagDetailsById)
             .Produces((int)HttpStatusCode.OK, typeof(TagResponse))
             .ProducesValidationProblem()
             .WithTags(QuestionModuleConstants.RouteTag.TagEndPointTagName)
             .RequireAuthorization();
 
-        routeBuilder.MapPost(QuestionModuleConstants.Route.CreateTag, CreateTag)
+        routeBuilder.MapPost(QuestionModuleConstants.Route.TagRoute.CreateTag, CreateTag)
             .Produces((int)HttpStatusCode.OK, typeof(TagResponse))
             .ProducesValidationProblem()
             .WithTags(QuestionModuleConstants.RouteTag.TagEndPointTagName)
             .RequireAuthorization();
 
-        routeBuilder.MapPut(QuestionModuleConstants.Route.UpdateTag, UpdateTag)
+        routeBuilder.MapPut(QuestionModuleConstants.Route.TagRoute.UpdateTag, UpdateTag)
             .Produces((int)HttpStatusCode.OK, typeof(TagResponse))
             .ProducesValidationProblem()
             .WithTags(QuestionModuleConstants.RouteTag.TagEndPointTagName)
             .RequireAuthorization();
 
-        routeBuilder.MapDelete(QuestionModuleConstants.Route.DeleteTag, DeleteTag)
+        routeBuilder.MapDelete(QuestionModuleConstants.Route.TagRoute.DeleteTag, DeleteTag)
             .Produces((int)HttpStatusCode.OK, typeof(bool))
             .ProducesValidationProblem()
             .WithTags(QuestionModuleConstants.RouteTag.TagEndPointTagName)
