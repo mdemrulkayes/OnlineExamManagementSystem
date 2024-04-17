@@ -3,6 +3,7 @@ using Modules.Identity;
 using Modules.Question.Endpoints;
 using Modules.Question.Infrastructure;
 using Quizzer.Api.Exceptions;
+using Quizzer.Api.Extensions;
 using Quizzer.Api.Services;
 using Serilog;
 using SharedKernel.Core;
@@ -53,7 +54,8 @@ try
 
     builder.Services.AddMediatRRequestLoggingBehaviour();
     builder.Services.AddMediatRFluentValidationBehaviour();
-    builder.Services.AddSwaggerGen();
+
+    builder.Services.RegisterJwtSwagger();
 
     var app = builder.Build();
 
