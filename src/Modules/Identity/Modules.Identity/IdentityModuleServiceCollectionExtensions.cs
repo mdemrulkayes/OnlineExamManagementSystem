@@ -7,16 +7,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Modules.Identity.Persistence;
 using Modules.Identity.Constants;
 using Modules.Identity.Entities;
-using Modules.Identity.Features.Registration;
 using Microsoft.AspNetCore.Builder;
-using Modules.Identity.Persistence.Interceptors;
 using Serilog;
-using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Modules.Identity.Features.Login;
 using Modules.Identity.Features.Login.Services;
 using Modules.Identity.Features.Registration.Services;
+using SharedKernel.Infrastructure.Interceptors;
 
 namespace Modules.Identity;
 public static class ServiceCollectionExtensions
@@ -31,12 +29,9 @@ public static class ServiceCollectionExtensions
 
         mediatRAssembly.Add(typeof(ServiceCollectionExtensions).Assembly);
 
-        services.AddScoped<IValidator<UserRegistrationCommand>, UserRegistrationCommandValidator>();
+
         services.AddScoped<IUserRegistrationService, UserRegistrationService>();
-
-        services.AddScoped<IValidator<LoginCommand>, LoginCommandValidator>();
         services.AddScoped<ILoginService, LoginService>();
-
         services.Configure<JwtConfiguration>(configuration.GetSection(nameof(JwtConfiguration)));
        
         logger.Information("{Module} registered successfully", "Identity");
@@ -47,7 +42,7 @@ public static class ServiceCollectionExtensions
     private static void RegisterIdentityDatabase(this IServiceCollection services, ILogger logger,
         IConfiguration configuration)
     {
-        services.AddScoped<IdentityModuleUpdateAuditableEntityInterceptor>();
+        services.AddScoped<PopulateAuditableEntityInterceptor>();
         services.AddDbContext<IdentityModuleDbContext>((sp, opt) =>
         {
             opt.UseSqlServer(configuration.GetConnectionString("IdentityModuleDbContext"), optBuilder =>
@@ -56,7 +51,7 @@ public static class ServiceCollectionExtensions
                 optBuilder.MigrationsHistoryTable(IdentityModuleConstants.MigrationHistoryTableName,
                     IdentityModuleConstants.SchemaName);
                 optBuilder.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
-            }).AddInterceptors(sp.GetRequiredService<IdentityModuleUpdateAuditableEntityInterceptor>());
+            }).AddInterceptors(sp.GetRequiredService<PopulateAuditableEntityInterceptor>());
         });
 
         RegisterIdentity(services, configuration);

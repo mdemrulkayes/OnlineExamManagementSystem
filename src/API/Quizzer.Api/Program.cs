@@ -53,7 +53,7 @@ try
     });
 
     builder.Services.AddMediatRRequestLoggingBehaviour();
-    builder.Services.AddMediatRFluentValidationBehaviour();
+    builder.Services.AddMediatRFluentValidationBehaviour(mediatRAssemblies);
 
     builder.Services.RegisterJwtSwagger();
 

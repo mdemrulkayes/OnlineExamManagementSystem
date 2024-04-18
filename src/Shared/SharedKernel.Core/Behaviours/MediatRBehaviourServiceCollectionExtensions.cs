@@ -12,11 +12,11 @@ public static class MediatRBehaviourServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddMediatRFluentValidationBehaviour(this IServiceCollection services)
+    public static IServiceCollection AddMediatRFluentValidationBehaviour(this IServiceCollection services, List<Assembly> mediatRAssemblies)
     {
         ValidatorOptions.Global.DefaultClassLevelCascadeMode = CascadeMode.Continue;
         ValidatorOptions.Global.DefaultRuleLevelCascadeMode = CascadeMode.Stop;
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(), includeInternalTypes: true);
+        services.AddValidatorsFromAssemblies(mediatRAssemblies, includeInternalTypes: true);
 
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
