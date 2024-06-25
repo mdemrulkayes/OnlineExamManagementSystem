@@ -14,7 +14,7 @@ public static class ResultExtension
 
         if (result.Errors != null && result.Errors.Any())
         {
-            return Results.Problem(new ProblemDetails
+            return TypedResults.Problem(new ProblemDetails
             {
                 Status = StatusCodes.Status400BadRequest,
                 Title = "Validation Error",
@@ -24,7 +24,7 @@ public static class ResultExtension
                 }
             });
         }
-        return Results.Problem(new ProblemDetails
+        return TypedResults.Problem(new ProblemDetails
         {
             Detail = result.Error.Message,
             Status = GetTitleAndStatusCode(result.Error).status,
