@@ -42,7 +42,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Question.Applicatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Question.Infrastructure", "src\Modules\Question\Modules.Question.Infrastructure\Modules.Question.Infrastructure.csproj", "{B6739693-D25D-4B9E-BAC3-CECA03F83F37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Question.Endpoints", "src\Modules\Question\Modules.Question.Endpoints\Modules.Question.Endpoints.csproj", "{61A2B338-1802-488B-9949-D06A07A92130}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Question.Endpoints", "src\Modules\Question\Modules.Question.Endpoints\Modules.Question.Endpoints.csproj", "{61A2B338-1802-488B-9949-D06A07A92130}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
