@@ -4,12 +4,12 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Modules.Question.Application.Common;
 using Modules.Question.Application.Question.QuestionSet.Create;
 using Modules.Question.Application.Question.QuestionSet.Delete;
 using Modules.Question.Application.Question.QuestionSet.Dtos;
 using Modules.Question.Application.Question.QuestionSet.Query;
 using Modules.Question.Application.Question.QuestionSet.Update;
+using Modules.Question.Core;
 using SharedKernel.Core;
 
 namespace Modules.Question.Endpoints.QuestionSet;

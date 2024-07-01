@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Modules.Question.Application.Common;
 using Modules.Question.Infrastructure.Data;
 using Serilog;
 using System.Reflection;
@@ -11,6 +10,7 @@ using Modules.Question.Core.Tag;
 using Modules.Question.Infrastructure.Persistence;
 using SharedKernel.Core;
 using SharedKernel.Infrastructure.Interceptors;
+using Modules.Question.Core;
 
 namespace Modules.Question.Infrastructure;
 public static class ServiceCollectionExtensions

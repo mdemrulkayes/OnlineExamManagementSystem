@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Modules.Question.Core;
 using Modules.Question.Core.QuestionAggregate;
-using Modules.Question.Application.Common;
 using QuestionCore = Modules.Question.Core.QuestionAggregate.Question;
 
 namespace Modules.Question.Infrastructure.Data;

@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\SharedKernel.Infrastructure\SharedKernel.Infrastructure.csproj" />
-    <ProjectReference Include="..\Modules.Question.Application\Modules.Question.Application.csproj" />
+    <ProjectReference Include="..\Modules.Question.Core\Modules.Question.Core.csproj" />
   </ItemGroup>
 
 </Project>

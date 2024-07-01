@@ -1,4 +1,4 @@
-﻿namespace Modules.Question.Application.Common;
+﻿namespace Modules.Question.Core;
 public struct QuestionModuleConstants
 {
     public const string SchemaName = "Question";
