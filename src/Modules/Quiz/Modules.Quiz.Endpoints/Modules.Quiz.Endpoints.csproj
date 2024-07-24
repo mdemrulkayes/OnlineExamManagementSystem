@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\SharedKernel.Core\SharedKernel.Core.csproj" />
+    <ProjectReference Include="..\Modules.Quiz.Application\Modules.Quiz.Application.csproj" />
+    <ProjectReference Include="..\Modules.Quiz.Infrastructure\Modules.Quiz.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

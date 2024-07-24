@@ -4,7 +4,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Modules.Identity.Persistence;
-using Modules.Question.Infrastructure.Data;
+using Modules.Quiz.Infrastructure.Data;
 using Testcontainers.MsSql;
 
 namespace Quizzer.Api.FunctionalTest.Abstraction;

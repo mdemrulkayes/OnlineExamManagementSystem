@@ -20,6 +20,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Modules\Identity\Modules.Identity\Modules.Identity.csproj" />
-		<ProjectReference Include="..\..\Modules\Question\Modules.Question.Endpoints\Modules.Question.Endpoints.csproj" />
+		<ProjectReference Include="..\..\Modules\Quiz\Modules.Quiz.Endpoints\Modules.Quiz.Endpoints.csproj" />
 	</ItemGroup>
 </Project>

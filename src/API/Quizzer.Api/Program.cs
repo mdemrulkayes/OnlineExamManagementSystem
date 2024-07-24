@@ -1,7 +1,7 @@
 using System.Reflection;
 using Modules.Identity;
-using Modules.Question.Endpoints;
-using Modules.Question.Infrastructure;
+using Modules.Quiz.Endpoints;
+using Modules.Quiz.Infrastructure;
 using Quizzer.Api.Exceptions;
 using Quizzer.Api.Extensions;
 using Quizzer.Api.Services;
