@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Identity.Features.Registration;
 internal struct RegistrationErrors

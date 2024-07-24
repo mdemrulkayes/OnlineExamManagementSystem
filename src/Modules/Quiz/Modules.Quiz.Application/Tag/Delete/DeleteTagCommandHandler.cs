@@ -1,5 +1,5 @@
 ﻿using Modules.Quiz.Core.Tag;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Quiz.Application.Tag.Delete;
 internal sealed class DeleteTagCommandHandler(ITagRepository repository, IUnitOfWork unitOfWork) : ICommandHandler<DeleteTagCommand, Result<bool>>

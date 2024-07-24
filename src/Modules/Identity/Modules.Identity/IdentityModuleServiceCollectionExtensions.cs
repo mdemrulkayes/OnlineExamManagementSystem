@@ -14,7 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Modules.Identity.Features.Login;
 using Modules.Identity.Features.Login.Services;
 using Modules.Identity.Features.Registration.Services;
-using SharedKernel.Infrastructure.Interceptors;
+using Shared.Infrastructure.Interceptors;
 
 namespace Modules.Identity;
 public static class ServiceCollectionExtensions

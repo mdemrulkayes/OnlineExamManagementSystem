@@ -1,6 +1,6 @@
 ﻿using Modules.Quiz.Core.QuestionAggregate;
 using Modules.Quiz.Core.Tag;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Quiz.Application.Question.QuestionSet.Delete;
 internal sealed class DeleteQuestionSetCommandHandler(IQuestionSetRepository repository, IUnitOfWork unitOfWork) : ICommandHandler<DeleteQuestionSetCommand, Result<bool>>

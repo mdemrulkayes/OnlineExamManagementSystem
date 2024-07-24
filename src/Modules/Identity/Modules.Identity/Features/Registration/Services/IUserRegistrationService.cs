@@ -1,5 +1,5 @@
 ﻿using Modules.Identity.Entities;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Identity.Features.Registration.Services;
 internal interface IUserRegistrationService

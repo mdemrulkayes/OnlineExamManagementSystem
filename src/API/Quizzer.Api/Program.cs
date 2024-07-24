@@ -6,10 +6,10 @@ using Quizzer.Api.Exceptions;
 using Quizzer.Api.Extensions;
 using Quizzer.Api.Services;
 using Serilog;
-using SharedKernel.Core;
-using SharedKernel.Core.Behaviours;
-using SharedKernel.Core.Extensions;
-using SharedKernel.Infrastructure;
+using Shared.Core;
+using Shared.Core.Behaviours;
+using Shared.Core.Extensions;
+using Shared.Infrastructure;
 
 var logger = Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()

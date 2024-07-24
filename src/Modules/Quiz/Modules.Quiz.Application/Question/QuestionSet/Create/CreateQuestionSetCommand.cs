@@ -1,5 +1,5 @@
 ﻿using Modules.Quiz.Application.Question.QuestionSet.Dtos;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Quiz.Application.Question.QuestionSet.Create;
 

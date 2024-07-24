@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Modules.Quiz.Application.Tag.Dtos;
 using Modules.Quiz.Core.Tag;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Quiz.Application.Tag.Create;
 internal sealed class CreateTagCommandHandler(ITagRepository repository, IUnitOfWork unitOfWork, IMapper mapper) : ICommandHandler<CreateTagCommand, Result<TagResponse>>

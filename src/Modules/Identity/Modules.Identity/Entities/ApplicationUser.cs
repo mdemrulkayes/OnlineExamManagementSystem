@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Modules.Identity.Features.Registration;
 using Modules.Identity.Features.Registration.Enums;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Identity.Entities;
 public sealed class ApplicationUser : IdentityUser<Guid>, IUpdatedAuditableEntity

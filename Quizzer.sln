@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{C7E4B6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Application", "src\Shared\Shared.Application\Shared.Application.csproj", "{8600300D-55EB-466F-9942-A7D4C78D2F0C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedKernel.Core", "src\Shared\SharedKernel.Core\SharedKernel.Core.csproj", "{59D2BBC7-2121-4842-A64C-62D36B7C2C08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Core", "src\Shared\Shared.Core\Shared.Core.csproj", "{59D2BBC7-2121-4842-A64C-62D36B7C2C08}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{C8442D29-984B-4E3C-9A38-5FCF40A538DA}"
 EndProject
@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quizzer.Api.FunctionalTest"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{48121298-B866-4920-8FEC-29BA44617D03}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedKernel.Infrastructure", "src\Shared\SharedKernel.Infrastructure\SharedKernel.Infrastructure.csproj", "{EA0924DC-C766-4FFB-A2E0-F339F5DC7269}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Infrastructure", "src\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj", "{EA0924DC-C766-4FFB-A2E0-F339F5DC7269}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B90DB932-BBB6-47B1-A657-CE8F90C02F4F}"
 	ProjectSection(SolutionItems) = preProject

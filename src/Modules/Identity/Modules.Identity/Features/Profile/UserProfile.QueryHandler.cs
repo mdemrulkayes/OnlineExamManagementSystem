@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Modules.Identity.Entities;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Identity.Features.Profile;
 internal sealed class UserProfileQueryHandler(IUser user,

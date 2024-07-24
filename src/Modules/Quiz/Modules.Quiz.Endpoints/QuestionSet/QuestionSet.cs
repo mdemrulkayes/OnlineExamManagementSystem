@@ -10,7 +10,7 @@ using Modules.Quiz.Application.Question.QuestionSet.Query;
 using Modules.Quiz.Application.Question.QuestionSet.Update;
 using Modules.Quiz.Core;
 using Shared.Application;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Quiz.Endpoints.QuestionSet;
 internal class QuestionSet : IBaseEndpoint

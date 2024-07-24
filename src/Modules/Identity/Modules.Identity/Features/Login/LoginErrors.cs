@@ -1,4 +1,4 @@
-﻿using SharedKernel.Core;
+﻿using Shared.Core;
 
 namespace Modules.Identity.Features.Login;
 internal struct LoginErrors

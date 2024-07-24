@@ -9,8 +9,8 @@ using Modules.Quiz.Core.Tag;
 using Modules.Quiz.Infrastructure.Data;
 using Modules.Quiz.Infrastructure.Persistence;
 using Serilog;
-using SharedKernel.Core;
-using SharedKernel.Infrastructure.Interceptors;
+using Shared.Core;
+using Shared.Infrastructure.Interceptors;
 
 namespace Modules.Quiz.Infrastructure;
 public static class ServiceCollectionExtensions

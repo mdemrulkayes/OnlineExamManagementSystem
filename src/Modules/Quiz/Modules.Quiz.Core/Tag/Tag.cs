@@ -1,5 +1,5 @@
 ﻿using Modules.Quiz.Core.QuestionAggregate;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Quiz.Core.Tag;
 public sealed class Tag : BaseAuditableEntity

@@ -1,5 +1,5 @@
 ﻿using Modules.Quiz.Infrastructure.Data;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Quiz.Infrastructure.Persistence;
 internal class UnitOfWork(QuestionModuleDbContext dbContext) : IUnitOfWork

@@ -9,7 +9,7 @@ using Modules.Identity.Features.Registration;
 using Modules.Identity.Features.Registration.Enums;
 using Newtonsoft.Json;
 using Quizzer.Api.FunctionalTest.Abstraction;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Quizzer.Api.FunctionalTest.Modules.Identity.Features.Registration;
 public class UserRegistrationEndpointTests(QuizzerWebApiFactory factory) : QuizzerBaseFunctionTest(factory)

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Modules.Identity.Constants;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Identity.Features.Login;
 internal sealed class Login : IBaseEndpoint

@@ -1,5 +1,5 @@
 ﻿using Modules.Identity.Features.Registration.Services;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Identity.Features.Registration;
 internal sealed class UserRegistrationCommandHandler(IUserRegistrationService userRegistrationService) : ICommandHandler<UserRegistrationCommand, Result<bool>>

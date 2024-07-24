@@ -5,7 +5,7 @@ using Modules.Identity.Constants;
 using Modules.Identity.Entities;
 using Modules.Identity.Features.Registration.Enums;
 using Modules.Identity.Features.Registration.Events;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Identity.Features.Registration.Services;
 internal class UserRegistrationService(

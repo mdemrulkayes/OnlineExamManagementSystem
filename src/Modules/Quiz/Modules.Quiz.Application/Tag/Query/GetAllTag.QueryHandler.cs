@@ -2,7 +2,7 @@
 using Modules.Quiz.Application.Tag.Dtos;
 using Modules.Quiz.Core.Tag;
 using Shared.Application;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Quiz.Application.Tag.Query;
 internal sealed class GetAllTagQueryHandler(ITagRepository tagRepository, IMapper mapper)

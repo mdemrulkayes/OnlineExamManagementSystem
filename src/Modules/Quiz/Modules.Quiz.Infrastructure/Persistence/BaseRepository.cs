@@ -1,8 +1,8 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Modules.Quiz.Infrastructure.Data;
-using SharedKernel.Core;
-using SharedKernel.Core.Extensions;
+using Shared.Core;
+using Shared.Core.Extensions;
 
 namespace Modules.Quiz.Infrastructure.Persistence;
 public class BaseRepository<TEntity>(QuestionModuleDbContext context) : IRepository<TEntity>

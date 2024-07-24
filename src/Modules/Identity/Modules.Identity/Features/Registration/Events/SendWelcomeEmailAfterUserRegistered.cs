@@ -1,4 +1,4 @@
-﻿using SharedKernel.Core;
+﻿using Shared.Core;
 
 namespace Modules.Identity.Features.Registration.Events;
 internal sealed record SendWelcomeEmailAfterUserRegistered(

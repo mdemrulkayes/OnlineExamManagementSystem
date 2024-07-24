@@ -1,5 +1,5 @@
 ﻿using Modules.Identity.Features.Registration.Enums;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Identity.Features.Registration;
 internal sealed record UserRegistrationCommand (

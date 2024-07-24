@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Quizzer.Api.Services;
 

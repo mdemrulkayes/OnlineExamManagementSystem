@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Modules.Quiz.Application.Question.QuestionSet.Dtos;
 using Modules.Quiz.Core.QuestionAggregate;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Quiz.Application.Question.QuestionSet.Create;
 internal sealed class CreateQuestionSetCommandHandler(IQuestionSetRepository repository, IUnitOfWork unitOfWork, IMapper mapper) : ICommandHandler<CreateQuestionSetCommand, Result<QuestionSetResponse>>

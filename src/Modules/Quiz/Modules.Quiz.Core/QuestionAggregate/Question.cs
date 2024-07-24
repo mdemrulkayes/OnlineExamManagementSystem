@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Quiz.Core.QuestionAggregate;
 public sealed class Question : BaseAuditableEntity

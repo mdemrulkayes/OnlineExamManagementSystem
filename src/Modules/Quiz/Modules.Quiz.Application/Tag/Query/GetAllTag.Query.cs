@@ -1,6 +1,6 @@
 ﻿using Modules.Quiz.Application.Tag.Dtos;
 using Shared.Application;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Quiz.Application.Tag.Query;
 

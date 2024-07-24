@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Modules.Quiz.Application.Question.QuestionSet.Dtos;
 using Modules.Quiz.Core.QuestionAggregate;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Quiz.Application.Question.QuestionSet.Query;
 internal class GetQuestionSetByIdQueryHandler(IQuestionSetRepository repository,

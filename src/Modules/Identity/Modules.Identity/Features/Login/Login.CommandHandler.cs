@@ -1,5 +1,5 @@
 ﻿using Modules.Identity.Features.Login.Services;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Identity.Features.Login;
 internal class LoginCommandHandler(ILoginService loginService) : ICommandHandler<LoginCommand, Result<LoginResponse>>

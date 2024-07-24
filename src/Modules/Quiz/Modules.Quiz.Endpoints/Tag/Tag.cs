@@ -10,7 +10,7 @@ using Modules.Quiz.Application.Tag.Query;
 using Modules.Quiz.Application.Tag.Update;
 using Modules.Quiz.Core;
 using Shared.Application;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Quiz.Endpoints.Tag;
 internal class Tag : IBaseEndpoint

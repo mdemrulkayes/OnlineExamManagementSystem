@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Shared.Application;
-using SharedKernel.Core;
+using Shared.Core;
 
 namespace Modules.Quiz.Application.Common.Mapping;
 internal sealed class MappingProfile : Profile
