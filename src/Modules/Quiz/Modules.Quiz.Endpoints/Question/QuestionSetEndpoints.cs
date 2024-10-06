@@ -12,8 +12,8 @@ using Modules.Quiz.Core;
 using Shared.Application;
 using Shared.Core;
 
-namespace Modules.Quiz.Endpoints.QuestionSet;
-internal class QuestionSet : IBaseEndpoint
+namespace Modules.Quiz.Endpoints.Question;
+internal class QuestionSetEndpoints : IBaseEndpoint
 {
     public void MapEndpoints(IEndpointRouteBuilder routeBuilder)
     {
@@ -21,31 +21,31 @@ internal class QuestionSet : IBaseEndpoint
             .MapGet(QuestionModuleConstants.Route.QuestionSetRoute.GetAllQuestionSets, GetAllQuestionSets)
             .Produces((int)HttpStatusCode.OK, typeof(PagedListDto<QuestionSetResponse>))
             .ProducesValidationProblem()
-            .WithTags(QuestionModuleConstants.RouteTag.TagEndPointQuestionSetName)
+            .WithTags(QuestionModuleConstants.RouteTag.QuestionSetTag)
             .RequireAuthorization();
 
         routeBuilder.MapGet(QuestionModuleConstants.Route.QuestionSetRoute.GetQuestionSetDetailsById, GetQuestionSetDetailsById)
             .Produces((int)HttpStatusCode.OK, typeof(QuestionSetResponse))
             .ProducesValidationProblem()
-            .WithTags(QuestionModuleConstants.RouteTag.TagEndPointQuestionSetName)
+            .WithTags(QuestionModuleConstants.RouteTag.QuestionSetTag)
             .RequireAuthorization();
 
         routeBuilder.MapPost(QuestionModuleConstants.Route.QuestionSetRoute.CreateQuestionSet, CreateQuestionSet)
             .Produces((int)HttpStatusCode.OK, typeof(QuestionSetResponse))
             .ProducesValidationProblem()
-            .WithTags(QuestionModuleConstants.RouteTag.TagEndPointQuestionSetName)
+            .WithTags(QuestionModuleConstants.RouteTag.QuestionSetTag)
             .RequireAuthorization();
 
         routeBuilder.MapPut(QuestionModuleConstants.Route.QuestionSetRoute.UpdateQuestionSet, UpdateQuestionSet)
             .Produces((int)HttpStatusCode.OK, typeof(QuestionSetResponse))
             .ProducesValidationProblem()
-            .WithTags(QuestionModuleConstants.RouteTag.TagEndPointQuestionSetName)
+            .WithTags(QuestionModuleConstants.RouteTag.QuestionSetTag)
             .RequireAuthorization();
 
         routeBuilder.MapDelete(QuestionModuleConstants.Route.QuestionSetRoute.DeleteQuestionSet, DeleteQuestionSet)
             .Produces((int)HttpStatusCode.OK, typeof(bool))
             .ProducesValidationProblem()
-            .WithTags(QuestionModuleConstants.RouteTag.TagEndPointQuestionSetName)
+            .WithTags(QuestionModuleConstants.RouteTag.QuestionSetTag)
             .RequireAuthorization();
     }
 

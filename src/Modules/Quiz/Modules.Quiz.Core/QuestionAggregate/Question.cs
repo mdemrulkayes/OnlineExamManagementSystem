@@ -29,10 +29,24 @@ public sealed class Question : BaseAuditableEntity
         return new Question(askedQuestion, discussion, mark);
     }
 
+    public Result<Question> Update(string askedQuestion, string discussion = "", int? mark = null)
+    {
+        AskedQuestion = askedQuestion;
+        Discussion = discussion;
+        QuestionMark = mark;
+
+        return this;
+    }
+
     public void AddQuestionOptions(string optionText, bool isAnswer = false)
     {
         var questionOption = QuestionOption.AddQuestionOption(optionText, isAnswer).Value;
         if (questionOption != null)
             _questionOptions.Add(questionOption);
+    }
+
+    public void Delete()
+    {
+        IsDeleted = true;
     }
 }

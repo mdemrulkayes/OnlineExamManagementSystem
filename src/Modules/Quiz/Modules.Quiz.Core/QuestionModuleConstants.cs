@@ -18,16 +18,26 @@ public struct QuestionModuleConstants
         public struct QuestionSetRoute
         {
             public const string GetAllQuestionSets = "/api/question/questionSet";
-            public const string GetQuestionSetDetailsById = "/api/question/questionSet/{tagId}";
+            public const string GetQuestionSetDetailsById = "/api/question/questionSet/{setId}";
             public const string CreateQuestionSet = "/api/question/questionSet";
             public const string UpdateQuestionSet = "/api/question/questionSet/{setId}";
             public const string DeleteQuestionSet = "/api/question/questionSet/{setId}";
+        }
+
+        public struct QuestionRoute
+        {
+            public const string GetAllQuestions = "/api/question";
+            public const string GetQuestionDetailsById = "/api/question/{questionId}";
+            public const string CreateQuestion = "/api/question";
+            public const string UpdateQuestion = "/api/question/{questionId}";
+            public const string DeleteQuestion = "/api/question/{questionId}";
         }
     }
 
     public struct RouteTag
     {
         public const string TagEndPointTagName = "Tag";
-        public const string TagEndPointQuestionSetName = "QuestionSet";
+        public const string QuestionSetTag = "QuestionSet";
+        public const string QuestionTag = "Question";
     }
 }

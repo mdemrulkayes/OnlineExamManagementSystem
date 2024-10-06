@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices.JavaScript;
-using Shared.Core;
+﻿using Shared.Core;
 
 namespace Modules.Identity.Features.Profile;
 internal record struct UserProfileError

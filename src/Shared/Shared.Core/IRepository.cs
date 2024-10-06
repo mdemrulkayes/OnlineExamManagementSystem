@@ -4,6 +4,5 @@ public interface IRepository<TEntity> : IReadRepository<TEntity>
 {
     TEntity Add(TEntity entity);
     TEntity Update(TEntity entity);
-
     TEntity Delete(TEntity entity);
 }

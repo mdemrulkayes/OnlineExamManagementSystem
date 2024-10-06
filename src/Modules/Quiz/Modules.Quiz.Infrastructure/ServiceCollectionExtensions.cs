@@ -48,6 +48,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ITagRepository, TagRepository>();
         services.AddScoped<IQuestionSetRepository, QuestionSetRepository>();
+        services.AddScoped<IQuestionRepository, QuestionRepository>();
     }
 
     public static IApplicationBuilder MigrateQuestionModuleDatabase(this IApplicationBuilder app)
