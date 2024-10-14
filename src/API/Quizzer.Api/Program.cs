@@ -18,6 +18,7 @@ var logger = Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
     .WriteTo.Console()
     .WriteTo.Debug()
+    .WriteTo.Elasticsearch()
     .CreateLogger();
 
 try
