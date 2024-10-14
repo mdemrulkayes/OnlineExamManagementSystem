@@ -22,7 +22,7 @@ internal sealed class Login : IBaseEndpoint
     {
         logger.LogInformation("Login request received for {Email}", command.Email);
         var result = await mediator.Send(command);
-        logger.LogInformation("Login request completed for {Email} and response {Response}", command.Email, result);
+        logger.LogInformation("Login request completed for {Email} and response {ResponseIsSuccess}", command.Email, result.IsSuccess);
         return result.IsSuccess ?
             TypedResults.Ok(result.Value) :
             result.ConvertToProblemDetails();
