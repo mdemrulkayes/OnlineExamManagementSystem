@@ -1,4 +1,7 @@
 using System.Reflection;
+using Elastic.Ingest.Elasticsearch;
+using Elastic.Ingest.Elasticsearch.DataStreams;
+using Elastic.Serilog.Sinks;
 using Modules.Identity;
 using Modules.Quiz.Endpoints;
 using Modules.Quiz.Infrastructure;
@@ -25,6 +28,7 @@ try
     builder.Host.UseSerilog((_, loggerConfiguration) =>
     {
         loggerConfiguration.ReadFrom.Configuration(builder.Configuration);
+        loggerConfiguration.WriteTo.Elasticsearch();
     });
     builder.Services.AddEndpointsApiExplorer(); //TODO: Need to replace with FastEndpoints library configuration
 

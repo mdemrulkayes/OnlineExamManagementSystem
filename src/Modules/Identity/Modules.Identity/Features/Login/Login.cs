@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Logging;
 using Modules.Identity.Constants;
 using Shared.Core;
 
@@ -17,9 +18,11 @@ internal sealed class Login : IBaseEndpoint
             .WithOpenApi();
     }
 
-    private static async Task<IResult> LoginHandler(LoginCommand command, IMediator mediator)
+    private static async Task<IResult> LoginHandler(LoginCommand command, IMediator mediator, ILogger<Login> logger)
     {
+        logger.LogInformation("Login request received for {Email}", command.Email);
         var result = await mediator.Send(command);
+        logger.LogInformation("Login request completed for {Email} and response {Response}", command.Email, result);
         return result.IsSuccess ?
             TypedResults.Ok(result.Value) :
             result.ConvertToProblemDetails();
