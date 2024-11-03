@@ -72,7 +72,7 @@ try
 
     #region Modulewise database migration
 
-    app.MigrateIdentityModuleDatabase();
+    app.MigrateIdentityModuleDatabase(logger: logger);
     app.MigrateQuestionModuleDatabase();
 
     #endregion

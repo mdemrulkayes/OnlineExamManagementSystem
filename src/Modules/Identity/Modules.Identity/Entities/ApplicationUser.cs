@@ -42,6 +42,12 @@ public sealed class ApplicationUser : IdentityUser<Guid>, IUpdatedAuditableEntit
         return new ApplicationUser(firstName, lastName, email, phoneNumber, userType, timeProvider);
     }
 
+    internal static Result<ApplicationUser> RegisterInternalAdminUser(string firstName, string lastName, string email,
+        string phoneNumber, ITimeProvider timeProvider)
+    {
+        return new ApplicationUser(firstName, lastName, email, phoneNumber, UserType.SuperAdmin, timeProvider);
+    }
+
     internal void UpdateLastLoginTime(ITimeProvider timeProvider)
     {
         LastLoginTime = timeProvider.TimeNow;

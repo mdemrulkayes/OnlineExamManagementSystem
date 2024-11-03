@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Modules.Identity.Features.Login;
 using Modules.Identity.Features.Login.Services;
 using Modules.Identity.Features.Registration.Services;
+using Modules.Identity.Models;
 using Shared.Infrastructure.Interceptors;
 
 namespace Modules.Identity;
@@ -33,6 +34,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IUserRegistrationService, UserRegistrationService>();
         services.AddScoped<ILoginService, LoginService>();
         services.Configure<JwtConfiguration>(configuration.GetSection(nameof(JwtConfiguration)));
+        services.Configure<DefaultUser>(configuration.GetSection(nameof(DefaultUser)));
        
         logger.Information("{Module} registered successfully", "Identity");
 
@@ -104,12 +106,13 @@ public static class ServiceCollectionExtensions
 
         services.AddIdentityCore<ApplicationUser>()
             .AddRoles<IdentityRole<Guid>>()
+            .AddRoleManager<RoleManager<IdentityRole<Guid>>>()
             .AddSignInManager<SignInManager<ApplicationUser>>()
             .AddEntityFrameworkStores<IdentityModuleDbContext>()
             .AddDefaultTokenProviders();
     }
 
-    public static IApplicationBuilder MigrateIdentityModuleDatabase(this IApplicationBuilder app)
+    public static IApplicationBuilder MigrateIdentityModuleDatabase(this IApplicationBuilder app, ILogger logger)
     {
         var scopedService = app.ApplicationServices.CreateScope();
         var dbContext = scopedService.ServiceProvider.GetRequiredService<IdentityModuleDbContext>();
@@ -118,6 +121,9 @@ public static class ServiceCollectionExtensions
         {
             dbContext.Database.Migrate();
         }
+
+        app.SeedDefaultRoles(logger)
+            .SeedDefaultUsers(logger);
 
         return app;
     }
