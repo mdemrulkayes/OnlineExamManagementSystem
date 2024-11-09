@@ -31,14 +31,28 @@ internal sealed class LoginService(
 
         if (!signIn.Succeeded)
         {
+            logger.LogError("Invalid credential for the user with email: {Email}", command.Email);
             return LoginErrors.InvalidCredential;
         }
 
+        logger.LogInformation("Generating JWT token");
         var loginResponse = GenerateJwtToken(command.Email, userDetails);
         if (!loginResponse.IsSuccess || loginResponse.Value is null)
         {
             return LoginErrors.InvalidCredential;
         }
+
+        logger.LogInformation("Setting refresh token");
+
+        //await GenerateAndStoreRefreshToken(userDetails);
+        //remove existing refresh token
+
+        //await userManager.RemoveAuthenticationTokenAsync(userDetails, "quizzer.refreshToken", "refreshToken");
+        //var newToken = await userManager.GenerateUserTokenAsync(userDetails, "quizzer.refreshToken", "refreshToken");
+
+        loginResponse.Value.SetRefreshToken(timeProvider);
+
+        //await userManager.SetAuthenticationTokenAsync(userDetails, TokenOptions.DefaultProvider, "RefreshToken", "hello");
 
         await UpdateUserLastLogin(userDetails);
 
@@ -55,10 +69,17 @@ internal sealed class LoginService(
         }
         catch (Exception e)
         {
-            logger.LogError("Error occurred while saving user last login information. UserGuid: {userGuid}", user.Id);
+            logger.LogError("Error occurred while saving user refresh token information. UserGuid: {userGuid}", user.Id);
             logger.LogError("Exception {exception}", e);
         }
     }
+
+
+    //public async Task GenerateAndStoreRefreshToken(ApplicationUser user)
+    //{
+    //    user.GenerateRefreshToken();
+    //    await userManager.UpdateAsync(user);
+    //}
 
 
     private Result<LoginResponse> GenerateJwtToken(string email, ApplicationUser userDetails)
@@ -83,7 +104,7 @@ internal sealed class LoginService(
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfiguration.JwtKey));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-        var expires = DateTime.UtcNow.AddDays(Convert.ToInt32(jwtConfiguration.JwtExpireDay));
+        var expires = DateTime.UtcNow.AddSeconds(Convert.ToInt32(jwtConfiguration.JwtExpireSeconds));
 
         var token = new JwtSecurityToken(
             issuer: jwtConfiguration.JwtIssuer,
@@ -95,7 +116,7 @@ internal sealed class LoginService(
 
         var generatedToken = new JwtSecurityTokenHandler().WriteToken(token);
         logger.LogInformation("Token generated successfully");
-        return new LoginResponse(userDetails.Id.ToString(), userDetails.Email,
-            $"{userDetails.FirstName} {userDetails.LastName}", generatedToken);
+        return new LoginResponse(userDetails.Id.ToString(), userDetails.Email!,
+            $"{userDetails.FirstName} {userDetails.LastName}", generatedToken, "Bearer");
     }
 }

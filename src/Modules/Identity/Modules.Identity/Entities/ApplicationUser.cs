@@ -16,6 +16,9 @@ public sealed class ApplicationUser : IdentityUser<Guid>, IUpdatedAuditableEntit
 
     public DateTimeOffset? LastLoginTime { get; set; }
 
+    //public Guid RefreshToken { get; private set; }
+    //public DateTimeOffset? RefreshTokenExpiryDate { get; private set; }
+
     private ApplicationUser()
     {
         
@@ -53,4 +56,9 @@ public sealed class ApplicationUser : IdentityUser<Guid>, IUpdatedAuditableEntit
         LastLoginTime = timeProvider.TimeNow;
         UpdatedDate = timeProvider.TimeNow;
     }
+
+    //internal void GenerateRefreshToken()
+    //{
+    //    RefreshToken = Guid.NewGuid().ToString(); ;
+    //}
 }

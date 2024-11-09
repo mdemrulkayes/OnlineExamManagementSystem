@@ -5,7 +5,8 @@ using Modules.Identity.Constants;
 using Modules.Identity.Entities;
 
 namespace Modules.Identity.Persistence;
-public class IdentityModuleDbContext(DbContextOptions<IdentityModuleDbContext> options) : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>(options)
+public class IdentityModuleDbContext(DbContextOptions<IdentityModuleDbContext> options) : 
+    IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>(options)
 {
     /// <summary>
     /// Configures the schema needed for the identity framework.
