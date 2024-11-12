@@ -110,6 +110,8 @@ public static class ServiceCollectionExtensions
             .AddSignInManager<SignInManager<ApplicationUser>>()
             .AddEntityFrameworkStores<IdentityModuleDbContext>()
             .AddDefaultTokenProviders();
+
+        services.Configure<DataProtectionTokenProviderOptions>(opts => opts.TokenLifespan = TimeSpan.FromHours(10));
     }
 
     public static IApplicationBuilder MigrateIdentityModuleDatabase(this IApplicationBuilder app, ILogger logger)

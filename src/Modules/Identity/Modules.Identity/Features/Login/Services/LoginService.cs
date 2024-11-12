@@ -42,17 +42,19 @@ internal sealed class LoginService(
             return LoginErrors.InvalidCredential;
         }
 
-        logger.LogInformation("Setting refresh token");
+        logger.LogInformation("Setting refresh token"); 
+        
+        await userManager.RemoveAuthenticationTokenAsync(userDetails, TokenOptions.DefaultProvider, "refreshToken");
 
-        //await GenerateAndStoreRefreshToken(userDetails);
-        //remove existing refresh token
+        var newToken = await userManager.GenerateUserTokenAsync(userDetails, TokenOptions.DefaultProvider, "refreshToken");
 
-        //await userManager.RemoveAuthenticationTokenAsync(userDetails, "quizzer.refreshToken", "refreshToken");
-        //var newToken = await userManager.GenerateUserTokenAsync(userDetails, "quizzer.refreshToken", "refreshToken");
+        logger.LogInformation("New refresh token generated");
 
-        loginResponse.Value.SetRefreshToken(timeProvider);
+        await userManager.SetAuthenticationTokenAsync(userDetails, TokenOptions.DefaultProvider, "RefreshToken", newToken);
 
-        //await userManager.SetAuthenticationTokenAsync(userDetails, TokenOptions.DefaultProvider, "RefreshToken", "hello");
+        logger.LogInformation("Refresh token set");
+
+        loginResponse.Value.SetRefreshToken(newToken, timeProvider);
 
         await UpdateUserLastLogin(userDetails);
 
@@ -73,14 +75,6 @@ internal sealed class LoginService(
             logger.LogError("Exception {exception}", e);
         }
     }
-
-
-    //public async Task GenerateAndStoreRefreshToken(ApplicationUser user)
-    //{
-    //    user.GenerateRefreshToken();
-    //    await userManager.UpdateAsync(user);
-    //}
-
 
     private Result<LoginResponse> GenerateJwtToken(string email, ApplicationUser userDetails)
     {

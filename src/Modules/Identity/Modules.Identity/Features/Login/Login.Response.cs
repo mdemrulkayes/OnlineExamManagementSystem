@@ -10,12 +10,12 @@ internal sealed record LoginResponse(
     string TokenType,
     long ExpiresIn = 3600)
 {
-    public Guid RefreshToken { get; private set; }
+    public string? RefreshToken { get; private set; }
     public DateTime? RefreshTokenExpiryDate { get; private set; }
 
-    public void SetRefreshToken(ITimeProvider timeProvider)
+    public void SetRefreshToken(string token, ITimeProvider timeProvider)
     {
-        RefreshToken = Guid.NewGuid();
+        RefreshToken = token;
         RefreshTokenExpiryDate = timeProvider.TimeNow.AddDays(7).DateTime;
     }
 }

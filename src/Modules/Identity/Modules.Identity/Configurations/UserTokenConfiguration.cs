@@ -12,8 +12,8 @@ internal sealed class UserTokenConfiguration : IEntityTypeConfiguration<Identity
             .ToTable("UserTokens")
             .HasKey(x => new
             {
-                x.LoginProvider,
                 x.UserId,
+                x.LoginProvider,
                 x.Name
             });
 

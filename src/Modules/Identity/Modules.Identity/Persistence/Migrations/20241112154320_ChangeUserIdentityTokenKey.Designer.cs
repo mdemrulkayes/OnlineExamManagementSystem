@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Modules.Identity.Persistence;
 
@@ -11,9 +12,11 @@ using Modules.Identity.Persistence;
 namespace Modules.Identity.Persistence.Migrations
 {
     [DbContext(typeof(IdentityModuleDbContext))]
-    partial class IdentityModuleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241112154320_ChangeUserIdentityTokenKey")]
+    partial class ChangeUserIdentityTokenKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
