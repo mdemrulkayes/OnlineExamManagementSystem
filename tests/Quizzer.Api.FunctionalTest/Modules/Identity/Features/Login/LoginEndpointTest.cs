@@ -23,10 +23,9 @@ public class LoginEndpointTest : QuizzerBaseFunctionTest
         loginApiCall.StatusCode.Should().Be(HttpStatusCode.OK);
         loginApiCall.Content.Should().NotBeNull();
 
-        var loginResponse = await loginApiCall.Content.ReadFromJsonAsync<LoginResponse>();
-        loginResponse.Should().BeOfType<LoginResponse>();
-        loginResponse?.Email.Should().Be(userName);
-        loginResponse?.Token.Should().NotBeNullOrWhiteSpace();
+        var accessTokenResponse = await loginApiCall.Content.ReadFromJsonAsync<AccessTokenResponse>();
+        accessTokenResponse.Should().BeOfType<AccessTokenResponse>();
+        accessTokenResponse?.Token.Should().NotBeNullOrWhiteSpace();
     }
 
     private async Task<HttpResponseMessage> LoginApiCall(string userName, string password)

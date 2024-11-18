@@ -37,9 +37,9 @@ public class QuizzerBaseFunctionTest
         foreach (var loginCommand in GenerateRegisterUserCommand())
         {
             var loginApiCall = await HttpClient.PostAsJsonAsync(IdentityModuleConstants.Route.Login, loginCommand);
-            var content = await loginApiCall.Content.ReadFromJsonAsync<LoginResponse>();
+            var content = await loginApiCall.Content.ReadFromJsonAsync<AccessTokenResponse>();
 
-            LoggedInUserDictionary.Add(loginCommand.Email, content.Token);
+            LoggedInUserDictionary.Add(loginCommand.Email, content!.Token);
         }
     }
 

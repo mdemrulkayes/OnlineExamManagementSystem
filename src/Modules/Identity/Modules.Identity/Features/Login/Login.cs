@@ -13,7 +13,7 @@ internal sealed class Login : IBaseEndpoint
     {
         routeBuilder
             .MapPost(IdentityModuleConstants.Route.Login, LoginHandler)
-            // .Produces<LoginResponse>()
+            // .Produces<AccessTokenResponse>()
             .WithName(nameof(IdentityModuleConstants.Route.Login))
             .WithTags(IdentityModuleConstants.RouteTag.IdentityTagName)
             .WithOpenApi();

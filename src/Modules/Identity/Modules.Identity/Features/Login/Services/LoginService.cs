@@ -16,7 +16,7 @@ internal sealed class LoginService(
     ILogger<LoginService> logger,
     ITimeProvider timeProvider) : ILoginService
 {
-    public async Task<Result<LoginResponse>> Login(LoginCommand command)
+    public async Task<Result<AccessTokenResponse>> Login(LoginCommand command)
     {
         logger.LogInformation("Inside the login method");
         var userDetails = await userManager.FindByEmailAsync(command.Email);
@@ -76,7 +76,7 @@ internal sealed class LoginService(
         }
     }
 
-    private Result<LoginResponse> GenerateJwtToken(string email, ApplicationUser userDetails)
+    private Result<AccessTokenResponse> GenerateJwtToken(string email, ApplicationUser userDetails)
     {
         var jwtConfiguration = jwtConfigurationOptions.Value;
         var claims = new List<Claim>();
@@ -110,7 +110,6 @@ internal sealed class LoginService(
 
         var generatedToken = new JwtSecurityTokenHandler().WriteToken(token);
         logger.LogInformation("Token generated successfully");
-        return new LoginResponse(userDetails.Id.ToString(), userDetails.Email!,
-            $"{userDetails.FirstName} {userDetails.LastName}", generatedToken, "Bearer");
+        return new AccessTokenResponse(generatedToken, "Bearer");
     }
 }

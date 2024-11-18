@@ -2,10 +2,7 @@
 
 namespace Modules.Identity.Features.Login;
 
-internal sealed record LoginResponse(
-    string UserId,
-    string Email,
-    string Name,
+internal sealed record AccessTokenResponse(
     string Token,
     string TokenType,
     long ExpiresIn = 3600)
