@@ -23,4 +23,6 @@ internal struct IdentityModuleConstants
 
     internal const string MigrationHistoryTableName = "__IdentityModuleMigrationHistory";
     internal const string SchemaName = "Identity";
+
+    internal const string RefreshTokenName = "RefreshToken";
 }

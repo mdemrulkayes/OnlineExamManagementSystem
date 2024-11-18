@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Modules.Identity.Constants;
 using Shared.Core;
 
 namespace Modules.Identity.Features.Login.Services;
@@ -36,29 +37,24 @@ internal sealed class LoginService(
         }
 
         logger.LogInformation("Generating JWT token");
-        var loginResponse = GenerateJwtToken(command.Email, userDetails);
-        if (!loginResponse.IsSuccess || loginResponse.Value is null)
-        {
-            return LoginErrors.InvalidCredential;
-        }
 
+        var jwtToken = GenerateJwtToken(command.Email, userDetails);
+       
         logger.LogInformation("Setting refresh token"); 
         
-        await userManager.RemoveAuthenticationTokenAsync(userDetails, TokenOptions.DefaultProvider, "refreshToken");
+        await userManager.RemoveAuthenticationTokenAsync(userDetails, TokenOptions.DefaultProvider, IdentityModuleConstants.RefreshTokenName);
 
-        var newToken = await userManager.GenerateUserTokenAsync(userDetails, TokenOptions.DefaultProvider, "refreshToken");
+        var refreshToken = await userManager.GenerateUserTokenAsync(userDetails, TokenOptions.DefaultProvider, IdentityModuleConstants.RefreshTokenName);
 
         logger.LogInformation("New refresh token generated");
 
-        await userManager.SetAuthenticationTokenAsync(userDetails, TokenOptions.DefaultProvider, "RefreshToken", newToken);
+        await userManager.SetAuthenticationTokenAsync(userDetails, TokenOptions.DefaultProvider, IdentityModuleConstants.RefreshTokenName, refreshToken);
 
         logger.LogInformation("Refresh token set");
 
-        loginResponse.Value.SetRefreshToken(newToken, timeProvider);
-
         await UpdateUserLastLogin(userDetails);
 
-        return loginResponse.Value;
+        return new AccessTokenResponse(Token: jwtToken, TokenType: "Bearer", RefreshToken: refreshToken, RefreshTokenExpiryDate: timeProvider.TimeNow.AddMinutes(30).DateTime);
     }
 
     private async Task UpdateUserLastLogin(ApplicationUser user)
@@ -76,7 +72,7 @@ internal sealed class LoginService(
         }
     }
 
-    private Result<AccessTokenResponse> GenerateJwtToken(string email, ApplicationUser userDetails)
+    private string GenerateJwtToken(string email, ApplicationUser userDetails)
     {
         var jwtConfiguration = jwtConfigurationOptions.Value;
         var claims = new List<Claim>();
@@ -110,6 +106,6 @@ internal sealed class LoginService(
 
         var generatedToken = new JwtSecurityTokenHandler().WriteToken(token);
         logger.LogInformation("Token generated successfully");
-        return new AccessTokenResponse(generatedToken, "Bearer");
+        return generatedToken;
     }
 }

@@ -7,6 +7,7 @@ using Modules.Identity.Constants;
 using System.Net.Http.Json;
 using Bogus;
 using Modules.Identity.Features.Login;
+using Shared.Core;
 
 namespace Quizzer.Api.FunctionalTest.Abstraction;
 public class QuizzerBaseFunctionTest
@@ -16,12 +17,14 @@ public class QuizzerBaseFunctionTest
     protected readonly HttpClient HttpClient;
     protected readonly UserManager<ApplicationUser> UserManager;
     public Dictionary<string, string> LoggedInUserDictionary = new();
+    protected readonly ITimeProvider TimeProvider;
 
     public QuizzerBaseFunctionTest(QuizzerWebApiFactory factory)
     {
         _scope = factory.Services.CreateScope();
         HttpClient = factory.CreateClient();
         UserManager = _scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        TimeProvider = _scope.ServiceProvider.GetRequiredService<ITimeProvider>();
     }
 
     public async Task RegisterOneTimeUser()
