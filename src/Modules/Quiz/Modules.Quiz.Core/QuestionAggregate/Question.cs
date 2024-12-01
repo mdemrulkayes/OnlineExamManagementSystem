@@ -11,7 +11,7 @@ public sealed class Question : BaseAuditableEntity
     public int? QuestionMark { get; private set; }
 
     public long QuestionSetId { get; private set; }
-    public QuestionSet QuestionSet { get; private set; }
+    public QuestionSet? QuestionSet { get; private set; }
 
     public IReadOnlyCollection<QuestionOption> Options => new ReadOnlyCollection<QuestionOption>(_questionOptions);
 
